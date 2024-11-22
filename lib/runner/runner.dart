@@ -1,15 +1,19 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport_calendart_app/core/services/di_container/di_container.dart';
+import 'package:sport_calendart_app/feature/notification/data/repositories/notification_repository_implementation.dart';
 import 'package:sport_calendart_app/runner/dependency_scope.dart';
 
 import '../core/environment/app_environment.dart';
 import '../core/splash_util/splash_util.dart';
 import '../feature/app/app.dart';
+import '../feature/notification/domain/repositories/notification_repository.dart';
 import 'init_config/init_config.dart';
 
 /// App launch.
@@ -44,6 +48,11 @@ Future<void> initFirebaseServices() async {
 
 Future<DIContainer> _initDependencies() async {
   final diContainer = DIContainer();
+
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+  final prefs = await SharedPreferences.getInstance();
+
+  diContainer.registerSingleton<NotificationRepository>(NotificationRepositoryImplementation(firebaseMessaging, prefs));
 
   return diContainer;
 }
