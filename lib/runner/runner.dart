@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:sport_calendart_app/core/services/di_container/di_container.dart';
+import 'package:sport_calendart_app/runner/dependency_scope.dart';
 
 import '../core/environment/app_environment.dart';
 import '../core/splash_util/splash_util.dart';
@@ -22,9 +24,10 @@ Future<void> run() => InitConfig.run<Future<void>>(
           ),
         );
         await initFirebaseServices();
-        await _initDependencies();
+        final diContainer = await _initDependencies();
+
         SplashUtil.removeSplash();
-        runApp(const StreakerApp());
+        runApp(DependenciesScope(dependencies: diContainer, child: const StreakerApp()));
       },
     );
 
@@ -39,9 +42,10 @@ Future<void> initFirebaseServices() async {
   // };
 }
 
-Future<void> _initDependencies() async {
-  // await configureDependencies();
-  await _initDotEnv();
+Future<DIContainer> _initDependencies() async {
+  final diContainer = DIContainer();
+
+  return diContainer;
 }
 
 Future<void> _initDotEnv() async {
