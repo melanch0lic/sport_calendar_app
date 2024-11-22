@@ -32,6 +32,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sport_calendart_app/feature/auth/presentation/sign_up/presentation/sign_up_page.dart';
+import 'package:sport_calendart_app/feature/auth/presentation/sign_in/presentation/sign_in_page.dart';
 
 import '../../feature/home/presentation/home_page.dart';
 import '../../feature/root/presentation/root_page.dart';
@@ -39,6 +41,7 @@ import 'routes_enum.dart';
 
 part 'routes/home_routes.dart';
 part 'routes/profile_routes.dart';
+part 'routes/auth_routes.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'RootNavigatorKey');
 final _homeRoutesNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'HomeRoutesNavigatorKey');
@@ -55,10 +58,11 @@ class AppRouter {
       : router = GoRouter(
           navigatorKey: rootNavigatorKey,
           debugLogDiagnostics: kDebugMode,
-          initialLocation: HomeRoutes.home.path,
+          initialLocation: AuthRoutes.signIn.path,
           routes: [
             // ..._commonRoutes,
             // ..._addAdRoutes,
+            ..._authRoutes,
             _commonBottomNavigationBarShellRoute,
           ],
           errorBuilder: (_, state) => Placeholder(key: state.pageKey),
@@ -72,7 +76,7 @@ class AppRouter {
 final _commonBottomNavigationBarShellRoute = StatefulShellRoute.indexedStack(
   branches: [
     _homeRoutesBranch,
-    _profileRoutesBranch
+    _profileRoutesBranch,
     // _searchRoutesBranch,
     // _favouritesRoutesBranch,
   ],
@@ -98,6 +102,7 @@ final _profileRoutesBranch = StatefulShellBranch(
     ..._profileRoutes,
   ],
 );
+
 
 // final _searchRoutesBranch = StatefulShellBranch(
 //   navigatorKey: _searchRoutesNavigatorKey,

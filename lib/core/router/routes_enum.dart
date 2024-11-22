@@ -5,6 +5,7 @@ const _adDetailsRoutesKey = '/ad_details_routes/';
 const _favouritesRoutesKey = '/favourites_routes/';
 const _profileRoutesKey = '/profile_routes/';
 const _commonRoutesKey = '/common_routes/';
+const _authRoutesKey = '/auth_routes/';
 
 enum HomeRoutes {
   home(path: '${_homeRoutesKey}home'),
@@ -13,6 +14,16 @@ enum HomeRoutes {
   final String path;
 
   const HomeRoutes({
+    required this.path,
+  });
+}
+
+enum AuthRoutes {
+  signIn(path: '${_authRoutesKey}sign_in'),
+  signUp(path: '${_authRoutesKey}sign_up');
+
+  final String path;
+  const AuthRoutes({
     required this.path,
   });
 }
