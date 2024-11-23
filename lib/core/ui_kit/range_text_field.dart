@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../extension/extensions.dart';
+import '../utils/extension/extensions.dart';
 
 const _radius = 8.0;
 

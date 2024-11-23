@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-import '../../error/error_handler.dart';
-import '../../resources/assets.gen.dart';
+import '../../../error/error_handler.dart';
+import '../../../resources/assets.gen.dart';
 
 extension ErrorExtension on BuildContext {
   /* TODO: Заменить на локализованные */

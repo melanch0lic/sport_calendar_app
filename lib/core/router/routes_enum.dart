@@ -20,7 +20,8 @@ enum HomeRoutes {
 
 enum AuthRoutes {
   signIn(path: '${_authRoutesKey}sign_in'),
-  signUp(path: '${_authRoutesKey}sign_up');
+  signUp(path: '${_authRoutesKey}sign_up'),
+  otp(path: '${_authRoutesKey}otp');
 
   final String path;
   const AuthRoutes({

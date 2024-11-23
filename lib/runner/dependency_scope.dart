@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sport_calendart_app/core/extension/src/context_extension.dart';
+import 'package:sport_calendart_app/core/utils/extension/src/context_extension.dart';
 import 'package:sport_calendart_app/core/services/di_container/di_container.dart';
 
 class DependenciesScope extends InheritedWidget {

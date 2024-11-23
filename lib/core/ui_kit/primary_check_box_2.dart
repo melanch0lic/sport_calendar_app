@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../extension/src/theme_extension.dart';
+import '../utils/extension/src/theme_extension.dart';
 
 @immutable
 class PrimaryCheckbox2 extends StatefulWidget {
