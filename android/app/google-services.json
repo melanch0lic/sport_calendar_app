@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "884661616216",
+    "project_id": "sportcalendar-ca1f8",
+    "storage_bucket": "sportcalendar-ca1f8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884661616216:android:c653ea497dabdfcf19942d",
+        "android_client_info": {
+          "package_name": "ru.yakudzaDev.sport_calendar_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZuaI7JYQRaDjV87n2SIb0banWR72H-1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
