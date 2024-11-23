@@ -82,11 +82,9 @@ class CommonTextStyles {
   );
 
   final body = TextStyle(
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: FontWeight.w400,
     color: _commonColors.darkGrey100,
-    height: 22 / 14,
-    fontFamily: _typography.tbcxRegularFont,
   );
 
   final body1 = TextStyle(

@@ -37,7 +37,7 @@ final _lightThemeData = ThemeData(
   elevatedButtonTheme: _buttonStyles.elevatedButtonThemeData,
   radioTheme: _buttonStyles.radioButtonTheme,
   textButtonTheme: _buttonStyles.textButtonThemeData,
-  scaffoldBackgroundColor: _commonColors.white,
+  scaffoldBackgroundColor: Colors.white,
   floatingActionButtonTheme: _buttonStyles.floatingActionButtonTheme,
 );
 
