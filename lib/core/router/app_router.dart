@@ -58,7 +58,7 @@ class AppRouter {
       : router = GoRouter(
           navigatorKey: rootNavigatorKey,
           debugLogDiagnostics: kDebugMode,
-          initialLocation: AuthRoutes.signIn.path,
+          initialLocation: HomeRoutes.home.path,
           routes: [
             // ..._commonRoutes,
             // ..._addAdRoutes,

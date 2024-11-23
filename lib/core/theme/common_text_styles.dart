@@ -1,12 +1,40 @@
 part of 'app_theme.dart';
 
 class CommonTextStyles {
-  final largeTitle = TextStyle(
-    fontSize: 26,
+  final largeTitle = const TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    color: Colors.white,
+    //height: 32 / 26,
+  );
+  final smallTitle = const TextStyle(
+    fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: _commonColors.darkGrey100,
-    height: 32 / 26,
-    fontFamily: _typography.tbcxBoldFont,
+    color: Colors.white,
+  );
+
+  final title2 = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: Color.fromRGBO(29, 31, 36, 1),
+  );
+
+  final cardTitle = const TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
+
+  final cardBody = const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
+
+  final cardName = const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: Colors.white,
   );
 
   final headline1 = TextStyle(
@@ -38,14 +66,6 @@ class CommonTextStyles {
     fontWeight: FontWeight.w400,
     color: _commonColors.darkGrey100,
     height: 28 / 20,
-    fontFamily: _typography.tbcxMediumFont,
-  );
-
-  final title2 = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-    color: _commonColors.darkGrey100,
-    height: 24 / 16,
     fontFamily: _typography.tbcxMediumFont,
   );
 

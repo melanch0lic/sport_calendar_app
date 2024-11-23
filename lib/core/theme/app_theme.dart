@@ -26,6 +26,7 @@ abstract class AppTheme {
 }
 
 final _lightThemeData = ThemeData(
+  fontFamily: 'OpenSans',
   appBarTheme: _appBarThemes.light,
   useMaterial3: true,
   primaryColor: _commonColors.green100,
@@ -41,6 +42,7 @@ final _lightThemeData = ThemeData(
 );
 
 final _darkThemeData = ThemeData(
+  fontFamily: 'OpenSans',
   useMaterial3: true,
   primaryColor: _commonColors.green100,
   extensions: [
