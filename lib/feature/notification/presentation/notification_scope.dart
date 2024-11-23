@@ -13,11 +13,11 @@ class NotificationScope extends StatelessWidget {
   const NotificationScope({required this.child, super.key});
   @override
   Widget build(BuildContext context) {
-    final bloc =
-        NotificationBloc(notificationRepository: DependenciesScope.of(context).resolve<NotificationRepository>())
-          ..add(InitializeNotifications());
     return BlocProvider<NotificationBloc>(
-      create: (context) => bloc,
+      lazy: false,
+      create: (context) =>
+          NotificationBloc(notificationRepository: DependenciesScope.of(context).resolve<NotificationRepository>())
+            ..add(InitializeNotifications()),
       child: child,
     );
   }

@@ -11,12 +11,10 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   NotificationBloc({
     required this.notificationRepository,
   }) : super(NotificationInitial()) {
-    on<NotificationEvent>((event, emit) {
+    on<NotificationEvent>((event, emit) async {
       switch (event.runtimeType) {
         case InitializeNotifications:
-          _onInitializeNotifications(event as InitializeNotifications, emit);
-        // case UpdateFcmToken:
-        //   _onUpdateFcmToken(event as UpdateFcmToken, emit);
+          await _onInitializeNotifications(event as InitializeNotifications, emit);
       }
     });
   }
@@ -26,6 +24,23 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
 
     try {
       final firebaseMessaging = FirebaseMessaging.instance;
+      final settings = await firebaseMessaging.requestPermission(
+        alert: true,
+        announcement: true,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+        print('Уведомления разрешены');
+      } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+        print('Разрешены временные уведомления');
+      } else {
+        print('Уведомления не разрешены');
+      }
       final newToken = await firebaseMessaging.getToken();
       print(newToken);
       if (newToken == null) {
@@ -40,29 +55,8 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           oldToken: oldToken,
           newToken: newToken,
         );
-        add(UpdateFcmToken(oldToken: oldToken, newToken: newToken));
-      } else {
-        emit(NotificationSuccess());
       }
-    } catch (e) {
-      emit(NotificationFailure(e.toString()));
-    }
-  }
-
-  Future<void> _onUpdateFcmToken(UpdateFcmToken event, Emitter<NotificationState> emit) async {
-    try {
-      final success = await notificationRepository.updateFcmToken(
-        oldToken: event.oldToken,
-        newToken: event.newToken,
-      );
-
-      if (success) {
-        emit(NotificationSuccess());
-        // Subscribe to default topics or other necessary actions
-        await notificationRepository.subscribeToTopic('default-notifications');
-      } else {
-        emit(NotificationFailure('Failed to update FCM token on server.'));
-      }
+      emit(NotificationSuccess());
     } catch (e) {
       emit(NotificationFailure(e.toString()));
     }
