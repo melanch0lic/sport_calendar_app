@@ -33,6 +33,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/bedrooms.svg
   SvgGenImage get bedrooms => const SvgGenImage('assets/icons/bedrooms.svg');
 
+  /// File path: assets/icons/bell.svg
+  SvgGenImage get bell => const SvgGenImage('assets/icons/bell.svg');
+
   /// File path: assets/icons/calendar.svg
   SvgGenImage get calendar => const SvgGenImage('assets/icons/calendar.svg');
 
@@ -51,6 +54,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/dollar.svg
   SvgGenImage get dollar => const SvgGenImage('assets/icons/dollar.svg');
 
+  /// File path: assets/icons/down_arrow.svg
+  SvgGenImage get downArrow => const SvgGenImage('assets/icons/down_arrow.svg');
+
   /// File path: assets/icons/empty_favourites.svg
   SvgGenImage get emptyFavourites => const SvgGenImage('assets/icons/empty_favourites.svg');
 
@@ -59,6 +65,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/eye.svg
   SvgGenImage get eye => const SvgGenImage('assets/icons/eye.svg');
+
+  /// File path: assets/icons/filter.svg
+  SvgGenImage get filter => const SvgGenImage('assets/icons/filter.svg');
 
   /// File path: assets/icons/filters.svg
   SvgGenImage get filters => const SvgGenImage('assets/icons/filters.svg');
@@ -99,14 +108,26 @@ class $AssetsIconsGen {
   /// File path: assets/icons/man.svg
   SvgGenImage get man => const SvgGenImage('assets/icons/man.svg');
 
+  /// File path: assets/icons/more.svg
+  SvgGenImage get more => const SvgGenImage('assets/icons/more.svg');
+
+  /// File path: assets/icons/more_vert.svg
+  SvgGenImage get moreVert => const SvgGenImage('assets/icons/more_vert.svg');
+
   /// File path: assets/icons/notifications.svg
   SvgGenImage get notifications => const SvgGenImage('assets/icons/notifications.svg');
 
   /// File path: assets/icons/page_in_development.svg
   SvgGenImage get pageInDevelopment => const SvgGenImage('assets/icons/page_in_development.svg');
 
+  /// File path: assets/icons/profile.svg
+  SvgGenImage get profile => const SvgGenImage('assets/icons/profile.svg');
+
   /// File path: assets/icons/rooms.svg
   SvgGenImage get rooms => const SvgGenImage('assets/icons/rooms.svg');
+
+  /// File path: assets/icons/schedule.svg
+  SvgGenImage get schedule => const SvgGenImage('assets/icons/schedule.svg');
 
   /// File path: assets/icons/search.svg
   SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
@@ -149,15 +170,18 @@ class $AssetsIconsGen {
         arrowLeft,
         arrowRight,
         bedrooms,
+        bell,
         calendar,
         commercial,
         contacts,
         countryHouses,
         delete,
         dollar,
+        downArrow,
         emptyFavourites,
         emptySearch,
         eye,
+        filter,
         filters,
         floor,
         help,
@@ -170,9 +194,13 @@ class $AssetsIconsGen {
         location,
         logo,
         man,
+        more,
+        moreVert,
         notifications,
         pageInDevelopment,
+        profile,
         rooms,
+        schedule,
         search,
         services,
         settings,
@@ -193,8 +221,11 @@ class $AssetsImagesGen {
   /// File path: assets/images/coin.png
   AssetGenImage get coin => const AssetGenImage('assets/images/coin.png');
 
+  /// File path: assets/images/pattern.png
+  AssetGenImage get pattern => const AssetGenImage('assets/images/pattern.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [coin];
+  List<AssetGenImage> get values => [coin, pattern];
 }
 
 class $AssetsNavBarGen {

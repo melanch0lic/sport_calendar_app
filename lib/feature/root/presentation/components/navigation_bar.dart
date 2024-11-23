@@ -46,6 +46,12 @@ class BottomNavBar extends StatelessWidget {
                   onTap: (index) => BottomNavigationScope.change(context, index),
                   index: 1,
                   currentIndex: currentIndex,
+                  asset: Assets.navBar.search,
+                ),
+                _NavBarItem(
+                  onTap: (index) => BottomNavigationScope.change(context, index),
+                  index: 2,
+                  currentIndex: currentIndex,
                   asset: Assets.navBar.profile,
                 ),
               ],

@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_calendart_app/feature/home/bloc_event/event_bloc.dart';
+import 'package:sport_calendart_app/feature/home/data/mock_event_repository_implementation.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/upcoming_competitons_card.dart';
 
 class AutoScrollingListView extends StatefulWidget {
@@ -27,10 +30,8 @@ class _AutoScrollingListViewState extends State<AutoScrollingListView> {
         final maxScrollExtent = _scrollController.position.maxScrollExtent;
         final currentScrollPosition = _scrollController.offset;
 
-        // Вычисляем индекс следующей карточки
         final nextIndex = ((currentScrollPosition + cardWidth / 2) ~/ (cardWidth + cardSpacing)) + 1;
 
-        // Если дошли до конца списка, возвращаемся к началу
         if (currentScrollPosition >= maxScrollExtent) {
           _scrollController.jumpTo(0);
         } else {
@@ -55,19 +56,33 @@ class _AutoScrollingListViewState extends State<AutoScrollingListView> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: ListView.separated(
-        controller: _scrollController,
-        itemCount: 7,
-        scrollDirection: Axis.horizontal,
-        separatorBuilder: (context, index) => const SizedBox(width: 12),
-        itemBuilder: (context, index) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width * 0.85,
-            child: const UpcomingCompetitonsCard(),
-          );
-        },
+    return BlocProvider(
+      create: (context) => EventBloc(MockEventRepositoryImplementation())..add(LoadEvents()),
+      child: SizedBox(
+        height: 200,
+        child: BlocBuilder<EventBloc, EventState>(
+          builder: (context, state) {
+            if (state is EventLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is EventLoaded) {
+              return ListView.separated(
+                controller: _scrollController,
+                itemCount: state.events.length,
+                scrollDirection: Axis.horizontal,
+                separatorBuilder: (context, index) => const SizedBox(width: 12),
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    child: UpcomingCompetitonsCard(event: state.events[index]),
+                  );
+                },
+              );
+            } else if (state is EventError) {
+              return Center(child: Text(state.message));
+            }
+            return const Center(child: Text("Нет данных"));
+          },
+        ),
       ),
     );
   }

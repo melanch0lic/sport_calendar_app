@@ -7,13 +7,11 @@ import 'package:sport_calendart_app/feature/home/presentation/components/home_ap
 import 'package:sport_calendart_app/feature/home/presentation/components/icon_with_notify_circle.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/personality_competition_card.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
         Container(
@@ -94,12 +92,12 @@ class HomePage extends StatelessWidget {
                                 const SizedBox(height: 12),
                                 Text('Основной состав', style: CommonTextStyles().title2),
                                 const SizedBox(height: 12),
-                                PersonalityCompetitionCard(),
-                                SizedBox(height: 16),
-                                PersonalityCompetitionCard(),
-                                SizedBox(height: 16),
-                                PersonalityCompetitionCard(),
-                                SizedBox(height: 100)
+                                const PersonalityCompetitionCard(),
+                                const SizedBox(height: 16),
+                                const PersonalityCompetitionCard(),
+                                const SizedBox(height: 16),
+                                const PersonalityCompetitionCard(),
+                                const SizedBox(height: 100)
                               ],
                             ),
                           )
