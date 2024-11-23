@@ -6,6 +6,7 @@ const _favouritesRoutesKey = '/favourites_routes/';
 const _profileRoutesKey = '/profile_routes/';
 const _commonRoutesKey = '/common_routes/';
 const _authRoutesKey = '/auth_routes/';
+const _calendarRoutesKey = '/calendar_routes/';
 
 enum HomeRoutes {
   home(path: '${_homeRoutesKey}home'),
@@ -14,6 +15,16 @@ enum HomeRoutes {
   final String path;
 
   const HomeRoutes({
+    required this.path,
+  });
+}
+
+enum CalendarRoutes {
+  calendar(path: '${_calendarRoutesKey}calendar');
+
+  final String path;
+
+  const CalendarRoutes({
     required this.path,
   });
 }

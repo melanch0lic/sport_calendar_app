@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:retrofit/http.dart';
+
 import 'package:sport_calendart_app/feature/auth/domain/entity/models/user.dart';
 import 'package:sport_calendart_app/feature/auth/domain/repositories/auth_repository.dart';
 

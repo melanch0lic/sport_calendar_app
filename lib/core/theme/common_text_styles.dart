@@ -12,7 +12,11 @@ class CommonTextStyles {
     fontWeight: FontWeight.w400,
     color: Colors.white,
   );
-
+  final buttonText = const TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: Color.fromRGBO(29, 31, 36, 1),
+  );
   final title2 = const TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,

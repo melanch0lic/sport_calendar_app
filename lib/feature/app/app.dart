@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/router/app_router.dart';
@@ -25,6 +26,11 @@ class _MaterialAppState extends State<_MaterialApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      locale: const Locale('ru', 'RU'),
+      supportedLocales: const [
+        Locale('ru', 'RU'),
+      ],
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       // locale: LocalizationScope.localeOf(context),
       // localizationsDelegates: AppLocalizations.localizationsDelegates,
       // supportedLocales: AppLocalizations.supportedLocales,

@@ -4,14 +4,14 @@ import 'package:sport_calendart_app/feature/auth/domain/repositories/auth_reposi
 class MockAuthRepository implements AuthRepository {
   @override
   Future<void> signIn(String login, String password) async {
-    await Future.delayed(const Duration(seconds: 1)); // Симуляция запроса
+    await Future.delayed(const Duration(seconds: 1));
     if (login != "test_user" || password != "123456") {
       throw Exception("Неверный логин или пароль");
     }
   }
 
+  @override
   Future<User> signUp(String login, String password) async {
-    // Симуляция запроса
     await Future.delayed(const Duration(seconds: 2));
     if (login.isNotEmpty && password.isNotEmpty) {
       return User(

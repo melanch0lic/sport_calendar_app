@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
+import 'package:sport_calendart_app/feature/home/domain/entity/models/event.dart';
 
 class UpcomingCompetitonsCard extends StatefulWidget {
-  const UpcomingCompetitonsCard({
-    super.key,
-  });
+  const UpcomingCompetitonsCard({super.key, required this.event});
 
+  final Event event;
   @override
   State<UpcomingCompetitonsCard> createState() => _UpcomingCompetitonsCardState();
 }
 
 class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
   static final List<Color> _listColors = [
-    Color.fromRGBO(255, 82, 38, 1),
-    Color.fromRGBO(27, 28, 33, 1),
-    Color.fromRGBO(237, 155, 22, 1),
-    Color.fromRGBO(27, 141, 33, 1),
-    Color.fromRGBO(114, 87, 255, 1),
+    const Color.fromRGBO(255, 82, 38, 1),
+    const Color.fromRGBO(27, 28, 33, 1),
+    const Color.fromRGBO(237, 155, 22, 1),
+    const Color.fromRGBO(27, 141, 33, 1),
+    const Color.fromRGBO(114, 87, 255, 1),
   ];
 
   static int _currentColorIndex = 0;
@@ -46,7 +47,7 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Велосипедный спорт', style: CommonTextStyles().cardTitle),
+                  Text(widget.event.sport, style: CommonTextStyles().cardTitle),
                   SvgPicture.asset('assets/icons/more_vert.svg'),
                 ],
               ),
@@ -55,16 +56,19 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
                 children: [
                   SvgPicture.asset('assets/icons/schedule.svg'),
                   const SizedBox(width: 5),
-                  Text('16 фев -- 19 фев', style: CommonTextStyles().cardBody),
+                  Text(
+                    '${formatTimestamp(widget.event.eventStartAt)}—${formatTimestamp(widget.event.eventEndAt)}',
+                    style: CommonTextStyles().cardBody,
+                  ),
                   const SizedBox(width: 8),
                   SvgPicture.asset('assets/icons/profile.svg'),
                   const SizedBox(width: 5),
-                  Text('25 участников', style: CommonTextStyles().cardBody)
+                  Text('${widget.event.participants} участников', style: CommonTextStyles().cardBody)
                 ],
               ),
               const SizedBox(height: 12),
               Text(
-                'Кубок России',
+                widget.event.competitionType,
                 style: CommonTextStyles().cardName,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -73,14 +77,14 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
               Row(
                 children: [
                   Text(
-                    'Юноши, девушки',
+                    widget.event.gender,
                     style: CommonTextStyles().cardBody.copyWith(
                           fontWeight: FontWeight.w400,
                         ),
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    'До 15 лет',
+                    '${widget.event.eventAgeMin} ${widget.event.eventAgeMax}',
                     style: CommonTextStyles().cardBody.copyWith(
                           fontWeight: FontWeight.w400,
                         ),
@@ -89,7 +93,7 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
               ),
               const SizedBox(height: 12),
               Text(
-                'Россия, Город Санкт-Петербург',
+                widget.event.location,
                 style: CommonTextStyles().cardTitle.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
@@ -101,4 +105,12 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
       ],
     );
   }
+}
+
+String formatTimestamp(String timestamp) {
+  DateTime date = DateTime.parse(timestamp);
+
+  String formattedDate = DateFormat('d MMM').format(date);
+
+  return formattedDate;
 }
