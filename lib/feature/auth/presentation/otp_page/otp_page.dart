@@ -2,35 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sport_calendart_app/feature/auth/data/bloc/bloc/auth_bloc.dart';
+import 'package:sport_calendart_app/feature/auth/presentation/auth_scope.dart';
 import 'package:sport_calendart_app/runner/dependency_scope.dart';
 
-import '../../../../../core/router/routes_enum.dart';
 import '../../../../../core/utils/text_field_outline_border.dart';
-import '../../../data/bloc/bloc/auth_state.dart';
-import '../../auth_scope.dart';
+import '../../data/bloc/bloc/auth_state.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
-
+class OtpPage extends StatefulWidget {
+  const OtpPage({super.key});
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<OtpPage> createState() => _OtpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
-  late final TextEditingController _passwordController;
-  late final TextEditingController _emailController;
+class _OtpPageState extends State<OtpPage> {
+  late final TextEditingController _otpController;
 
   @override
   void initState() {
     super.initState();
-    _passwordController = TextEditingController();
-    _emailController = TextEditingController();
+    _otpController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _passwordController.dispose();
-    _emailController.dispose();
+    _otpController.dispose();
     super.dispose();
   }
 
@@ -50,7 +45,7 @@ class _SignInPageState extends State<SignInPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: Text(
-                  'Авторизация',
+                  'Подвтерждение',
                   textAlign: TextAlign.center,
                   style: theme.textTheme.headlineSmall?.copyWith(
                     color: theme.colorScheme.onSurface,
@@ -62,12 +57,12 @@ class _SignInPageState extends State<SignInPage> {
                 child: SizedBox(
                   height: 48,
                   child: TextField(
-                    controller: _emailController,
+                    controller: _otpController,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: theme.colorScheme.onSurface,
                     ),
                     decoration: InputDecoration(
-                      hintText: 'Email',
+                      hintText: 'Otp',
                       border: TextFieldOutlineBorder(
                         scheme: theme.colorScheme,
                       ),
@@ -76,39 +71,29 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: _PasswordTextField(controller: _passwordController),
-              ),
-              Padding(
                 padding: const EdgeInsets.only(top: 24),
                 child: SizedBox(
                   height: 48,
                   child: BlocListener<AuthBloc, AuthState>(
                     bloc: DependenciesScope.of(context).resolve<AuthBloc>(),
                     listener: (context, state) {
-                      if (state is AuthError) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(state.message),
-                          ),
-                        );
+                      if (state is AuthAuthenticated) {
+                        context.go('/home_routes/home');
                       }
-                      if (state is AuthOtpSent) {
-                        context.push(AuthRoutes.otp.path);
+
+                      if (state is AuthOtpSentError) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Произошла ошибка при отправке кода')),
+                        );
                       }
                     },
                     child: FilledButton(
                       style: theme.elevatedButtonTheme.style,
                       onPressed: () {
-                        // Adds the [AuthEvent.signInWithEmailAndPassword]
-                        // event to the [AuthBloc]
-                        AuthScope.of(context).signInWithEmailAndPassword(
-                          _emailController.text,
-                          _passwordController.text,
-                        );
+                        AuthScope.of(context).checkEmailCode(_otpController.text);
                       },
                       child: Text(
-                        'Sign in',
+                        'Подтвердить',
                         style: theme.textTheme.labelLarge?.copyWith(
                           color: theme.colorScheme.onPrimary,
                         ),
@@ -118,50 +103,6 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _PasswordTextField extends StatefulWidget {
-  const _PasswordTextField({
-    required this.controller,
-  });
-
-  final TextEditingController controller;
-
-  @override
-  State<_PasswordTextField> createState() => _PasswordTextFieldState();
-}
-
-class _PasswordTextFieldState extends State<_PasswordTextField> {
-  bool _obscureText = true;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return SizedBox(
-      height: 48,
-      child: TextField(
-        controller: widget.controller,
-        obscureText: _obscureText,
-        style: theme.textTheme.bodyLarge?.copyWith(
-          color: theme.colorScheme.onSurface,
-        ),
-        decoration: InputDecoration(
-          hintText: 'Password',
-          border: TextFieldOutlineBorder(scheme: theme.colorScheme),
-          suffixIcon: IconButton(
-            icon: Icon(
-              _obscureText ? Icons.visibility_off : Icons.visibility,
-              color: theme.colorScheme.onSurface,
-            ),
-            onPressed: () {
-              setState(() => _obscureText = !_obscureText);
-            },
           ),
         ),
       ),

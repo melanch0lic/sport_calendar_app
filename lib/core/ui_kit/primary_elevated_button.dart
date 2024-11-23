@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../extension/extensions.dart';
+import '../utils/extension/extensions.dart';
 
 @immutable
 class PrimaryElevatedButton extends StatelessWidget {

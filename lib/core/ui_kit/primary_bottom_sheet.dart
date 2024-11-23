@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as cmbs;
 
-import '../extension/extensions.dart';
+import '../utils/extension/extensions.dart';
 
 mixin PrimaryBottomSheet {
   static Future<T?> show<T>({
@@ -31,13 +31,13 @@ mixin PrimaryBottomSheet {
       bounce: bounce,
       closeProgressThreshold: closeProgressThreshold,
       containerBuilder: (_, __, child) => _BottomSheet(
-        child: child,
         padding: padding,
         clipBehavior: clipBehavior,
         elevation: elevation,
         overlayStyle: overlayStyle,
         borderRadius: borderRadius,
         backgroundColor: backgroundColor,
+        child: child,
       ),
       expanded: expand,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,

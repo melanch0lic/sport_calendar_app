@@ -9,7 +9,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sport_calendart_app/core/modules/auth/token_storage.dart';
+import 'package:sport_calendart_app/core/modules/dio_module.dart';
 import 'package:sport_calendart_app/core/services/di_container/di_container.dart';
+import 'package:sport_calendart_app/feature/auth/data/auth_api.dart';
+import 'package:sport_calendart_app/feature/auth/data/bloc/bloc/auth_bloc.dart';
+import 'package:sport_calendart_app/feature/auth/data/datasources/auth_datasource.dart';
+import 'package:sport_calendart_app/feature/auth/data/datasources/token_storage_sp.dart';
+import 'package:sport_calendart_app/feature/auth/data/repositories/auth_repository_implementation.dart';
 import 'package:sport_calendart_app/feature/notification/data/repositories/notification_repository_implementation.dart';
 import 'package:sport_calendart_app/firebase_options.dart';
 import 'package:sport_calendart_app/runner/dependency_scope.dart';
@@ -17,6 +24,7 @@ import 'package:sport_calendart_app/runner/dependency_scope.dart';
 import '../core/environment/app_environment.dart';
 import '../core/splash_util/splash_util.dart';
 import '../feature/app/app.dart';
+import '../feature/auth/logic/auth_interceptor.dart';
 import '../feature/notification/domain/repositories/notification_repository.dart';
 import 'init_config/init_config.dart';
 
@@ -31,6 +39,7 @@ Future<void> run() => InitConfig.run<Future<void>>(
             statusBarColor: Colors.transparent,
           ),
         );
+        await _initDotEnv();
         await initFirebaseServices();
         final diContainer = await _initDependencies();
 
@@ -62,7 +71,21 @@ Future<DIContainer> _initDependencies() async {
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
   final prefs = await SharedPreferences.getInstance();
 
+  final TokenStorage<Token> tokenStorage = TokenStorageSP(sharedPreferences: prefs);
+
+  final DioModule dioModule = DioModule();
+
+  final AuthApi authApi = AuthApi(dioModule.dio);
+
+  final AuthDataSource dataSource = AuthDataSourceNetwork(authApi);
+  final AuthRepository authRepository = AuthRepositoryImpl(dataSource: dataSource, storage: tokenStorage);
+
+  final TokenInterceptor authInterceptor = TokenInterceptor(sessionData: tokenStorage, authApi: authApi);
+  dioModule.dio.interceptors.add(authInterceptor);
+
+  diContainer.registerSingleton<DioModule>(dioModule);
   diContainer.registerSingleton<NotificationRepository>(NotificationRepositoryImplementation(firebaseMessaging, prefs));
+  diContainer.registerSingleton<AuthBloc>(AuthBloc(authRepository: authRepository));
 
   return diContainer;
 }
