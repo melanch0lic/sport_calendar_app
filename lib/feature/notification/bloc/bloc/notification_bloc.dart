@@ -15,11 +15,10 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       switch (event.runtimeType) {
         case InitializeNotifications:
           _onInitializeNotifications(event as InitializeNotifications, emit);
-        case UpdateFcmToken:
-          _onUpdateFcmToken(event as UpdateFcmToken, emit);
+        // case UpdateFcmToken:
+        //   _onUpdateFcmToken(event as UpdateFcmToken, emit);
       }
     });
-    add(InitializeNotifications());
   }
 
   Future<void> _onInitializeNotifications(InitializeNotifications event, Emitter<NotificationState> emit) async {
@@ -28,6 +27,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     try {
       final firebaseMessaging = FirebaseMessaging.instance;
       final newToken = await firebaseMessaging.getToken();
+      print(newToken);
       if (newToken == null) {
         emit(NotificationFailure('Failed to retrieve FCM token.'));
         return;

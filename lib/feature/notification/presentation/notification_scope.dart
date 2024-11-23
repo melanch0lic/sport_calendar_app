@@ -4,6 +4,7 @@ import 'package:sport_calendart_app/feature/notification/bloc/bloc/notification_
 import 'package:sport_calendart_app/feature/notification/domain/repositories/notification_repository.dart';
 
 import '../../../runner/dependency_scope.dart';
+import '../bloc/bloc/notification_event.dart';
 
 @immutable
 class NotificationScope extends StatelessWidget {
@@ -11,9 +12,13 @@ class NotificationScope extends StatelessWidget {
 
   const NotificationScope({required this.child, super.key});
   @override
-  Widget build(BuildContext context) => BlocProvider<NotificationBloc>(
-        create: (context) =>
-            NotificationBloc(notificationRepository: DependenciesScope.of(context).resolve<NotificationRepository>()),
-        child: child,
-      );
+  Widget build(BuildContext context) {
+    final bloc =
+        NotificationBloc(notificationRepository: DependenciesScope.of(context).resolve<NotificationRepository>())
+          ..add(InitializeNotifications());
+    return BlocProvider<NotificationBloc>(
+      create: (context) => bloc,
+      child: child,
+    );
+  }
 }
