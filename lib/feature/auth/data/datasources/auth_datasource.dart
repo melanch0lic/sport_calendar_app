@@ -12,7 +12,7 @@ abstract interface class AuthDataSource<T> {
   Future<T> checkEmailCode(String code);
 
   /// Sign in with email and password
-  Future<void> signInWithEmailAndPassword(String email, String password);
+  Future<T> signInWithEmailAndPassword(String email, String password);
 
   /// Sign up with email and password
   Future<void> signUp(String email, String password);
@@ -44,12 +44,13 @@ final class AuthDataSourceNetwork implements AuthDataSource<Token> {
   }
 
   @override
-  Future<void> signInWithEmailAndPassword(
+  Future<Token> signInWithEmailAndPassword(
     String email,
     String password,
   ) async {
     try {
-      await _authApi.signInWithEmailAndPassword(AuthLoginRequest(login: email, password: password));
+      final response = await _authApi.signInWithEmailAndPassword(AuthLoginRequest(login: email, password: password));
+      return Token(response.data!.accessToken, response.data!.refreshToken);
     } on DioException catch (error) {
       if (error.response?.statusCode == 401 || error.response?.statusCode == 403) {
         throw const WrongCredentialsException();

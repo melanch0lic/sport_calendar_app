@@ -15,7 +15,7 @@ abstract class AuthApi {
   Future<AuthResponse> checkEmailCode(@Body() CodeModel body);
 
   @POST("/auth/login")
-  Future<void> signInWithEmailAndPassword(@Body() AuthLoginRequest body);
+  Future<AuthResponse> signInWithEmailAndPassword(@Body() AuthLoginRequest body);
 
   @POST("/auth/register")
   Future<void> signUp(@Body() AuthRequest body);

@@ -218,6 +218,9 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/bubbles.png
+  AssetGenImage get bubbles => const AssetGenImage('assets/images/bubbles.png');
+
   /// File path: assets/images/coin.png
   AssetGenImage get coin => const AssetGenImage('assets/images/coin.png');
 
@@ -225,7 +228,7 @@ class $AssetsImagesGen {
   AssetGenImage get pattern => const AssetGenImage('assets/images/pattern.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [coin, pattern];
+  List<AssetGenImage> get values => [bubbles, coin, pattern];
 }
 
 class $AssetsNavBarGen {

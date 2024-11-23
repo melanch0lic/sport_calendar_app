@@ -7,7 +7,7 @@ abstract interface class AuthRepository<T> implements AuthStatusSource {
   Future<T> checkEmailCode(String code);
 
   /// Sign in with email and password
-  Future<void> signInWithEmailAndPassword(String email, String password);
+  Future<T> signInWithEmailAndPassword(String email, String password);
 
   /// Sign up with email and password
   Future<void> signUp(String email, String password);
@@ -40,12 +40,14 @@ final class AuthRepositoryImpl<T> implements AuthRepository<T> {
   }
 
   @override
-  Future<void> signInWithEmailAndPassword(
+  Future<T> signInWithEmailAndPassword(
     String email,
     String password,
   ) async {
     try {
-      await _dataSource.signInWithEmailAndPassword(email, password);
+      final token = await _dataSource.signInWithEmailAndPassword(email, password);
+      await _storage.save(token);
+      return token;
     } catch (error) {
       rethrow;
     }
