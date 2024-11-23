@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +11,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport_calendart_app/core/services/di_container/di_container.dart';
 import 'package:sport_calendart_app/feature/notification/data/repositories/notification_repository_implementation.dart';
+import 'package:sport_calendart_app/firebase_options.dart';
 import 'package:sport_calendart_app/runner/dependency_scope.dart';
 
 import '../core/environment/app_environment.dart';
@@ -36,14 +40,14 @@ Future<void> run() => InitConfig.run<Future<void>>(
     );
 
 Future<void> initFirebaseServices() async {
-  // await Firebase.initializeApp(options: getFirebaseOptions());
-  // FlutterError.onError = (errorDetails) {
-  //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  // };
-  // PlatformDispatcher.instance.onError = (error, stack) {
-  //   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-  //   return true;
-  // };
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
 }
 
 Future<DIContainer> _initDependencies() async {
