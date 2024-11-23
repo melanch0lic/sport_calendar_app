@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../extension/extensions.dart';
+import '../utils/extension/extensions.dart';
 
 class MultiSelectionCard<T> extends StatelessWidget {
   final void Function(T) onTap;

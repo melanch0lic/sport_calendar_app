@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../error/error_handler.dart';
-import '../extension/extensions.dart';
+import '../utils/extension/extensions.dart';
 
 @immutable
 class ErrorBody extends StatelessWidget {

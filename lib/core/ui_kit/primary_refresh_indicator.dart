@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../extension/extensions.dart';
+import '../utils/extension/extensions.dart';
 
 class PrimaryRefreshIndicator extends StatelessWidget {
   final Widget child;
@@ -11,10 +11,10 @@ class PrimaryRefreshIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.theme.commonColors;
     return RefreshIndicator(
-      child: child,
       backgroundColor: colors.white,
       color: colors.green100,
       onRefresh: onRefresh,
+      child: child,
     );
   }
 }

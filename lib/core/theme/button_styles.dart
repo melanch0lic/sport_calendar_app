@@ -3,7 +3,7 @@ part of 'app_theme.dart';
 class _ButtonStyles {
   final elevatedButtonThemeData = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: _commonColors.green100,
+      backgroundColor: const Color.fromRGBO(67, 84, 250, 1),
       foregroundColor: _commonColors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
@@ -31,8 +31,8 @@ class _ButtonStyles {
   );
 
   final floatingActionButtonTheme = FloatingActionButtonThemeData(
-      backgroundColor: _commonColors.green100,
-      foregroundColor: _commonColors.white,
-      elevation: 1,
-    );
+    backgroundColor: _commonColors.green100,
+    foregroundColor: _commonColors.white,
+    elevation: 1,
+  );
 }

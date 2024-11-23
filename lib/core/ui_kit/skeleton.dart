@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../extension/extensions.dart';
+import '../utils/extension/extensions.dart';
 
 class Skeleton extends StatelessWidget {
   final double? radius;

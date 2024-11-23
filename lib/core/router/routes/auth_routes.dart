@@ -9,4 +9,8 @@ final _authRoutes = [
     path: AuthRoutes.signUp.path,
     builder: (_, state) => SignUpPage(key: state.pageKey),
   ),
+  GoRoute(
+    path: AuthRoutes.otp.path,
+    builder: (_, state) => OtpPage(key: state.pageKey),
+  ),
 ];

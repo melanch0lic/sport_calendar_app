@@ -1,13 +1,13 @@
 // ignore_for_file: avoid_field_initializers_in_const_classes
 import 'package:flutter/material.dart';
 
-part 'common_colors.dart';
 part 'animation_durations.dart';
-part 'app_theme_extension.dart';
-part 'typography.dart';
-part 'common_text_styles.dart';
-part 'button_styles.dart';
 part 'app_bar_theme.dart';
+part 'app_theme_extension.dart';
+part 'button_styles.dart';
+part 'common_colors.dart';
+part 'common_text_styles.dart';
+part 'typography.dart';
 
 const _commonColors = CommonColors();
 const _typography = _Typography();
@@ -37,7 +37,7 @@ final _lightThemeData = ThemeData(
   elevatedButtonTheme: _buttonStyles.elevatedButtonThemeData,
   radioTheme: _buttonStyles.radioButtonTheme,
   textButtonTheme: _buttonStyles.textButtonThemeData,
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: _commonColors.white,
   floatingActionButtonTheme: _buttonStyles.floatingActionButtonTheme,
 );
 

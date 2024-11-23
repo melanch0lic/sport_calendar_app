@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/extension/extensions.dart';
+import '../../../../core/utils/extension/extensions.dart';
 import '../../../../core/resources/assets.gen.dart';
 
 import '../bottom_navigation_scope.dart';

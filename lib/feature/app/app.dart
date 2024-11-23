@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sport_calendart_app/feature/auth/presentation/auth_scope.dart';
 
 import '../../core/router/app_router.dart';
 import '../../core/theme/app_theme.dart';
@@ -25,20 +25,17 @@ class _MaterialAppState extends State<_MaterialApp> {
   final GoRouter _router = AppRouter().router;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      locale: const Locale('ru', 'RU'),
-      supportedLocales: const [
-        Locale('ru', 'RU'),
-      ],
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      // locale: LocalizationScope.localeOf(context),
-      // localizationsDelegates: AppLocalizations.localizationsDelegates,
-      // supportedLocales: AppLocalizations.supportedLocales,
-      routerConfig: _router,
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightThemeData,
-      builder: (context, child) => _MediaQuery(
-        child: child ?? const SizedBox.shrink(),
+    return AuthScope(
+      child: MaterialApp.router(
+        // locale: LocalizationScope.localeOf(context),
+        // localizationsDelegates: AppLocalizations.localizationsDelegates,
+        // supportedLocales: AppLocalizations.supportedLocales,
+        routerConfig: _router,
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightThemeData,
+        builder: (context, child) => _MediaQuery(
+          child: child ?? const SizedBox.shrink(),
+        ),
       ),
     );
   }

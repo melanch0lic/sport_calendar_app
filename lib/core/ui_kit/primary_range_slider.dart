@@ -5,7 +5,7 @@ import 'package:another_xlider/models/tooltip/tooltip.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:flutter/material.dart';
 
-import '../extension/extensions.dart';
+import '../utils/extension/extensions.dart';
 
 class PrimaryRangeSlider extends StatelessWidget {
   final ValueNotifier<double> startValue;
@@ -22,7 +22,7 @@ class PrimaryRangeSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _handler = FlutterSliderHandler(
+    final handler = FlutterSliderHandler(
       child: CircleAvatar(
         radius: 10,
         backgroundColor: context.theme.commonColors.green100,
@@ -42,15 +42,14 @@ class PrimaryRangeSlider extends StatelessWidget {
       trackBar: FlutterSliderTrackBar(
         activeTrackBarHeight: 6,
         inactiveTrackBarHeight: 4,
-        activeTrackBar:
-            BoxDecoration(color: context.theme.commonColors.green100),
+        activeTrackBar: BoxDecoration(color: context.theme.commonColors.green100),
         inactiveTrackBar: BoxDecoration(
           color: context.theme.commonColors.green10,
           borderRadius: BorderRadius.circular(5),
         ),
       ),
-      handler: _handler,
-      rightHandler: _handler,
+      handler: handler,
+      rightHandler: handler,
       handlerHeight: 20,
       handlerWidth: 20,
       tooltip: FlutterSliderTooltip(
