@@ -10,6 +10,8 @@ import '../bloc/bloc/notification_event.dart';
 class NotificationScope extends StatelessWidget {
   final Widget child;
 
+  static NotificationScope readOf(BuildContext context) => context.read<NotificationScope>();
+
   const NotificationScope({required this.child, super.key});
   @override
   Widget build(BuildContext context) {
