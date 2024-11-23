@@ -1,4 +1,4 @@
-package com.example.clean_template_flutter_project
+package ru.yakudzaDev.sport_calendar_app
 
 import io.flutter.embedding.android.FlutterActivity
 

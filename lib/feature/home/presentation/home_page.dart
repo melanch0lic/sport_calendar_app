@@ -3,14 +3,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/auto_scrolling_listview.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/home_appbar.dart';
+
 import 'package:sport_calendart_app/feature/home/presentation/components/icon_with_notify_circle.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/personality_competition_card.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Stack(
       children: [
         Container(
