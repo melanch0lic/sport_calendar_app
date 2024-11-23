@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:sport_calendart_app/feature/auth/data/auth_api.dart';
-import 'package:unixtime/unixtime.dart';
 
 import '../../../core/modules/auth/token_storage.dart';
 
@@ -45,15 +43,16 @@ class TokenInterceptor extends Interceptor {
   Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     final token = await sessionData.load();
     if (token != null && !options.uri.path.contains('refresh')) {
-      final decodedToken = JwtDecoder.decode(token.accessToken);
-      if (DateTime.now().unixtime < decodedToken['exp']) {
-        options.headers.addAll({'Authorization': 'Bearer $token'});
-      } else {
-        print('Refreshing token...');
-        //TODO refresh token
-        // final newtoken = sessionData.getAccessToken();
-        // options.headers.addAll({'Authorization': 'Bearer $newtoken'});
-      }
+      // final decodedToken = JwtDecoder.decode(token.accessToken);
+      // if (DateTime.now().unixtime < decodedToken['exp']) {
+      //   options.headers.addAll({'Authorization': 'Bearer $token'});
+      // } else {
+      //   print('Refreshing token...');
+      //   //TODO refresh token
+      //   // final newtoken = sessionData.getAccessToken();
+      //   // options.headers.addAll({'Authorization': 'Bearer $newtoken'});
+      // }
+      options.headers.addAll({'Authorization': 'Bearer $token'});
     }
     super.onRequest(options, handler);
   }

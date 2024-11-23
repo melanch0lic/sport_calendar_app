@@ -5,6 +5,8 @@ class CommonColors {
   final black = const Color(0xFF000000);
   final transparent = const Color(0x00000000);
 
+  final indigo = const Color.fromRGBO(67, 84, 250, 1);
+
   final darkGrey100 = const Color(0xFF222222);
   final darkGrey70 = const Color(0xFF646464);
   final darkGrey30 = const Color(0xFFA7A7A7);

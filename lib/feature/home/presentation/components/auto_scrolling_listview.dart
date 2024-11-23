@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_calendart_app/core/ui_kit/skeleton.dart';
 import 'package:sport_calendart_app/feature/home/bloc_event/event_bloc.dart';
 import 'package:sport_calendart_app/feature/home/data/mock_event_repository_implementation.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/upcoming_competitons_card.dart';
@@ -63,7 +65,11 @@ class _AutoScrollingListViewState extends State<AutoScrollingListView> {
         child: BlocBuilder<EventBloc, EventState>(
           builder: (context, state) {
             if (state is EventLoading) {
-              return const Center(child: CircularProgressIndicator());
+              Skeleton.rect(
+                width: MediaQuery.of(context).size.width * 0.85,
+                height: 400,
+                borderRadius: BorderRadius.circular(16),
+              );
             } else if (state is EventLoaded) {
               return ListView.separated(
                 controller: _scrollController,

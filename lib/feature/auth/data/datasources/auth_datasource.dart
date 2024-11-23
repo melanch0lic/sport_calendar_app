@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:sport_calendart_app/feature/auth/domain/entity/auth_login_request.dart';
 
+import '../../domain/code_model.dart';
+import '../../domain/entity/auth_request.dart';
 import '../../logic/auth_interceptor.dart';
 import '../auth_api.dart';
 
@@ -28,8 +32,8 @@ final class AuthDataSourceNetwork implements AuthDataSource<Token> {
   @override
   Future<Token> checkEmailCode(String code) async {
     try {
-      final token = await _authApi.checkEmailCode({'code': code});
-      return Token(token.accessToken, token.refreshToken);
+      final response = await _authApi.checkEmailCode(CodeModel(code: code));
+      return Token(response.data!.accessToken, response.data!.refreshToken);
     } on DioException catch (error) {
       if (error.response?.statusCode == 401 || error.response?.statusCode == 403) {
         throw const WrongCredentialsException();
@@ -45,7 +49,7 @@ final class AuthDataSourceNetwork implements AuthDataSource<Token> {
     String password,
   ) async {
     try {
-      await _authApi.signInWithEmailAndPassword({'email': email, 'password': password});
+      await _authApi.signInWithEmailAndPassword(AuthLoginRequest(login: email, password: password));
     } on DioException catch (error) {
       if (error.response?.statusCode == 401 || error.response?.statusCode == 403) {
         throw const WrongCredentialsException();
@@ -60,7 +64,13 @@ final class AuthDataSourceNetwork implements AuthDataSource<Token> {
   @override
   Future<void> signUp(String email, String password) async {
     try {
-      await _authApi.signUp({'email': email, 'password': password});
+      final token = await FirebaseMessaging.instance.getToken() ?? 'None';
+      await _authApi.signUp(
+        AuthRequest(email: email, password: password, deviceToken: token
+            // +
+            // Random().nextInt(100).toString()
+            ),
+      );
     } on DioException catch (error) {
       if (error.response?.statusCode == 401 || error.response?.statusCode == 403) {
         throw const WrongCredentialsException();

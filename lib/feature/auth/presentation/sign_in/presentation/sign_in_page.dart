@@ -117,6 +117,21 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: FilledButton(
+                  style: theme.elevatedButtonTheme.style,
+                  onPressed: () {
+                    context.push(AuthRoutes.signUp.path);
+                  },
+                  child: Text(
+                    'Sign up',
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

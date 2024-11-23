@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/extension/extensions.dart';
 import '../../../../core/resources/assets.gen.dart';
-
+import '../../../../core/utils/extension/extensions.dart';
 import '../bottom_navigation_scope.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -86,12 +85,12 @@ class _NavBarItem extends StatelessWidget {
       child: Ink(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? colors.green10 : colors.neutralgrey3,
+          color: isSelected ? colors.indigo.withOpacity(0.1) : colors.neutralgrey3,
         ),
         padding: const EdgeInsets.all(12),
         child: asset.svg(
           colorFilter: ColorFilter.mode(
-            isSelected ? colors.green100 : colors.darkGrey30,
+            isSelected ? colors.indigo : colors.darkGrey30,
             BlendMode.srcIn,
           ),
         ),
