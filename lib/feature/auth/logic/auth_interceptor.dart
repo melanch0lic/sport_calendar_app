@@ -52,7 +52,7 @@ class TokenInterceptor extends Interceptor {
       //   // final newtoken = sessionData.getAccessToken();
       //   // options.headers.addAll({'Authorization': 'Bearer $newtoken'});
       // }
-      options.headers.addAll({'Authorization': 'Bearer $token'});
+      options.headers.addAll({'Authorization': 'Bearer ${token.accessToken}'});
     }
     super.onRequest(options, handler);
   }

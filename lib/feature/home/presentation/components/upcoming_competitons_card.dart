@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
-import 'package:sport_calendart_app/feature/home/domain/entity/models/event.dart';
+import 'package:sport_calendart_app/feature/home/domain/entity/event_data.dart';
 
 class UpcomingCompetitonsCard extends StatefulWidget {
   const UpcomingCompetitonsCard({super.key, required this.event});
 
-  final Event event;
+  final EventData event;
   @override
   State<UpcomingCompetitonsCard> createState() => _UpcomingCompetitonsCardState();
 }
@@ -47,7 +47,7 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(widget.event.sport, style: CommonTextStyles().cardTitle),
+                  Text(widget.event.sportTypeId, style: CommonTextStyles().cardTitle),
                   SvgPicture.asset('assets/icons/more_vert.svg'),
                 ],
               ),
@@ -57,18 +57,18 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
                   SvgPicture.asset('assets/icons/schedule.svg'),
                   const SizedBox(width: 5),
                   Text(
-                    '${formatTimestamp(widget.event.eventStartAt)}—${formatTimestamp(widget.event.eventEndAt)}',
+                    '${formatTimestamp(widget.event.eventStartDate.toIso8601String())}—${formatTimestamp(widget.event.eventEndDate.toIso8601String())}',
                     style: CommonTextStyles().cardBody,
                   ),
                   const SizedBox(width: 8),
                   SvgPicture.asset('assets/icons/profile.svg'),
                   const SizedBox(width: 5),
-                  Text('${widget.event.participants} участников', style: CommonTextStyles().cardBody)
+                  Text('${widget.event.eventParticipants} участников', style: CommonTextStyles().cardBody)
                 ],
               ),
               const SizedBox(height: 12),
               Text(
-                widget.event.competitionType,
+                widget.event.eventName,
                 style: CommonTextStyles().cardName,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -77,7 +77,7 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
               Row(
                 children: [
                   Text(
-                    widget.event.gender,
+                    widget.event.eventGender,
                     style: CommonTextStyles().cardBody.copyWith(
                           fontWeight: FontWeight.w400,
                         ),
@@ -93,7 +93,7 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
               ),
               const SizedBox(height: 12),
               Text(
-                widget.event.location,
+                widget.event.eventLocation,
                 style: CommonTextStyles().cardTitle.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
