@@ -34,17 +34,32 @@ class PersonalityCompetitionCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/more_vert.svg',
+                      color: const Color.fromRGBO(67, 84, 250, 1),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'Кубок России',
+                  style: CommonTextStyles().cardName.copyWith(
+                      color: isActive ? const Color.fromRGBO(29, 31, 36, 1) : const Color.fromRGBO(29, 31, 36, 0.5)),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
                 Row(children: [
-                  SvgPicture.asset(
-                    'assets/icons/schedule.svg',
-                    color: const Color.fromRGBO(67, 84, 250, 1),
-                  ),
-                  const SizedBox(width: 5),
                   Text(
                     '${formatTimestamp(event.eventStartDate.toIso8601String())} — ${formatTimestamp(event.eventEndDate.toIso8601String())}',
                     style: CommonTextStyles().cardBody.copyWith(
-                          color:
-                              isActive ? const Color.fromRGBO(107, 110, 117, 1) : const Color.fromRGBO(255, 82, 71, 1),
+                          fontWeight: FontWeight.w400,
+                          color: isActive
+                              ? const Color.fromRGBO(107, 110, 117, 1)
+                              : const Color.fromRGBO(107, 110, 117, 0.5),
                         ),
                   ),
                   const SizedBox(width: 8),
@@ -99,6 +114,14 @@ class PersonalityCompetitionCard extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               event.eventLocation,
+              style: CommonTextStyles().cardTitle.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: isActive ? const Color.fromRGBO(58, 61, 68, 1) : const Color.fromRGBO(58, 61, 68, 0.5),
+                  ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Россия, Город Санкт-Петербург',
               style: CommonTextStyles().cardTitle.copyWith(
                     fontWeight: FontWeight.w400,
                     color: isActive ? const Color.fromRGBO(58, 61, 68, 1) : const Color.fromRGBO(58, 61, 68, 0.5),

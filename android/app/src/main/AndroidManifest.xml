@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="sport_calendar_app"
+        android:label="Sport Calendar"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
