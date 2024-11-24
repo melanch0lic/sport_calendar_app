@@ -17,11 +17,11 @@ class MockEventRepositoryImplementation implements EventRepository {
   }) async {
     await Future.delayed(const Duration(seconds: 2));
     return List.generate(
-      5,
+      14,
       (index) => EventData(
         eventId: index + 1,
         parentEventId: null,
-        sportTypeId: 'Sport-${index + 1}',
+        sportTypeId: index % 2 == 0 ? 'Футбол' : 'SportType $index',
         teamTypeId: 'Team-${index + 1}',
         eventLocation: 'Москва',
         eventEkpNumber: "'0'",

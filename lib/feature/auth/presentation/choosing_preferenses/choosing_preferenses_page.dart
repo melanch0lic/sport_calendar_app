@@ -30,7 +30,7 @@ class ChoosingPreferensesPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 120),
                             child: Text(
-                              'Подтверждение',
+                              'Выбор предпочтений',
                               textAlign: TextAlign.center,
                               style: CommonTextStyles().largeTitle.copyWith(color: const Color.fromRGBO(29, 31, 36, 1)),
                             ),
