@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/auth_scope.dart';
 import 'package:sport_calendart_app/feature/notification/presentation/notification_scope.dart';
@@ -28,6 +29,14 @@ class _MaterialAppState extends State<_MaterialApp> {
     return NotificationScope(
       child: AuthScope(
         child: MaterialApp.router(
+          locale: const Locale('ru', 'RU'),
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('ru', 'RU'),
+          ],
           // locale: LocalizationScope.localeOf(context),
           // localizationsDelegates: AppLocalizations.localizationsDelegates,
           // supportedLocales: AppLocalizations.supportedLocales,

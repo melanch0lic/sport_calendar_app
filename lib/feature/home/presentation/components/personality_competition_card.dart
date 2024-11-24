@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
+import 'package:sport_calendart_app/feature/home/domain/entity/event_data.dart';
+import 'package:sport_calendart_app/feature/home/presentation/components/upcoming_competitons_card.dart';
 
 class PersonalityCompetitionCard extends StatelessWidget {
   const PersonalityCompetitionCard({
     super.key,
+    required this.event,
   });
 
+  final EventData event;
   @override
   Widget build(BuildContext context) {
-    final bool isActive = DateTime.now().month == DateTime.november ? true : false;
+    final bool isActive = event.eventStartDate.isBefore(DateTime.now().toUtc().add(const Duration(days: 1)));
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16).copyWith(bottom: 20),
@@ -31,7 +35,7 @@ class PersonalityCompetitionCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  '16 фев — 19 фев',
+                  '${formatTimestamp(event.eventStartDate.toIso8601String())} — ${formatTimestamp(event.eventEndDate.toIso8601String())}',
                   style: CommonTextStyles().cardBody.copyWith(
                         color: isActive ? const Color.fromRGBO(107, 110, 117, 1) : const Color.fromRGBO(255, 82, 71, 1),
                       ),
@@ -42,7 +46,7 @@ class PersonalityCompetitionCard extends StatelessWidget {
                   color: const Color.fromRGBO(67, 84, 250, 1),
                 ),
                 const SizedBox(width: 5),
-                Text('25 участников',
+                Text('${event.eventParticipants} участников',
                     style: CommonTextStyles().cardBody.copyWith(
                           color: isActive
                               ? const Color.fromRGBO(107, 110, 117, 1)
@@ -57,7 +61,7 @@ class PersonalityCompetitionCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            'Кубок России',
+            event.eventName,
             style: CommonTextStyles().cardName.copyWith(
                 color: isActive ? const Color.fromRGBO(29, 31, 36, 1) : const Color.fromRGBO(29, 31, 36, 0.5)),
             maxLines: 1,
@@ -67,7 +71,7 @@ class PersonalityCompetitionCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                'Юноши, девушки',
+                event.eventGender,
                 style: CommonTextStyles().cardBody.copyWith(
                       fontWeight: FontWeight.w400,
                       color:
@@ -76,7 +80,7 @@ class PersonalityCompetitionCard extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Text(
-                'До 15 лет',
+                'От ${event.eventAgeMin}— до ${event.eventAgeMax} лет',
                 style: CommonTextStyles().cardBody.copyWith(
                       fontWeight: FontWeight.w400,
                       color: isActive ? const Color.fromRGBO(58, 61, 68, 1) : const Color.fromRGBO(58, 61, 68, 0.5),
@@ -86,7 +90,7 @@ class PersonalityCompetitionCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            'Россия, Город Санкт-Петербург',
+            event.eventLocation,
             style: CommonTextStyles().cardTitle.copyWith(
                   fontWeight: FontWeight.w400,
                   color: isActive ? const Color.fromRGBO(58, 61, 68, 1) : const Color.fromRGBO(58, 61, 68, 0.5),

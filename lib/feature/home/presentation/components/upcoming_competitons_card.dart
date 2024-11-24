@@ -108,9 +108,11 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
 }
 
 String formatTimestamp(String timestamp) {
-  DateTime date = DateTime.parse(timestamp);
-
-  String formattedDate = DateFormat('d MMM').format(date);
-
-  return formattedDate;
+  try {
+    DateTime date = DateTime.parse(timestamp);
+    String formattedDate = DateFormat('d MMM', 'ru').format(date);
+    return formattedDate.replaceAll('.', '');
+  } catch (e) {
+    return 'Некорректная дата';
+  }
 }

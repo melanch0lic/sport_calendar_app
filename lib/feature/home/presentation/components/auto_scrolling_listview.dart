@@ -99,7 +99,7 @@ class _AutoScrollingListViewState extends State<AutoScrollingListView> {
           } else if (state is EventError) {
             return Center(child: Text(state.message));
           }
-          return const Center(child: Text("Нет данных"));
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );
