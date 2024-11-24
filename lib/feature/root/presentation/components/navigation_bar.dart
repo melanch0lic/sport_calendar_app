@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sport_calendart_app/core/theme/app_theme.dart';
 
 import '../../../../core/resources/assets.gen.dart';
 import '../../../../core/utils/extension/extensions.dart';
@@ -89,15 +90,15 @@ class _NavBarItem extends StatelessWidget {
       onTap: () => onTap(index),
       borderRadius: const BorderRadius.all(Radius.circular(100)),
       child: Ink(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? colors.indigo.withOpacity(0.1) : colors.neutralgrey3,
+          color: isSelected ? const CommonColors().indigo.withOpacity(0.1) : const CommonColors().neutralgrey3,
         ),
         padding: const EdgeInsets.all(15),
         child: asset.svg(
           width: 24,
           colorFilter: ColorFilter.mode(
-            isSelected ? colors.indigo : colors.darkGrey30,
+            isSelected ? const CommonColors().indigo : const CommonColors().darkGrey30,
             BlendMode.srcIn,
           ),
         ),
