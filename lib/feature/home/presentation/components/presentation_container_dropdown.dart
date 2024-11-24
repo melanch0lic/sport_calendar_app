@@ -4,8 +4,8 @@ import 'package:sport_calendart_app/core/theme/app_theme.dart';
 import 'package:sport_calendart_app/feature/home/domain/entity/event_data.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/personality_competition_card.dart';
 
-class ContainerDropdown extends StatefulWidget {
-  const ContainerDropdown({
+class PresentationContainerDropdown extends StatefulWidget {
+  const PresentationContainerDropdown({
     super.key,
     required this.events,
     required this.sportTypeId,
@@ -14,10 +14,10 @@ class ContainerDropdown extends StatefulWidget {
   final List<EventData> events;
   final String sportTypeId;
   @override
-  State<ContainerDropdown> createState() => _ContainerDropdownState();
+  State<PresentationContainerDropdown> createState() => _PresentationContainerDropdownState();
 }
 
-class _ContainerDropdownState extends State<ContainerDropdown> {
+class _PresentationContainerDropdownState extends State<PresentationContainerDropdown> {
   bool isExpanded = false;
 
   @override

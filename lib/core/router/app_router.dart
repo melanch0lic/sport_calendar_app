@@ -36,6 +36,8 @@ import 'package:sport_calendart_app/feature/auth/presentation/choosing_preferens
 import 'package:sport_calendart_app/feature/auth/presentation/sign_in/presentation/sign_in_page.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/sign_up/presentation/sign_up_page.dart';
 import 'package:sport_calendart_app/feature/calendar/presentation/calendar_page.dart';
+import 'package:sport_calendart_app/feature/home/bloc/home_state.dart';
+import 'package:sport_calendart_app/feature/home/domain/entity/event_data.dart';
 import 'package:sport_calendart_app/feature/home/presentation/detail_page.dart';
 import 'package:sport_calendart_app/feature/profile/presentation/profile_page.dart';
 
