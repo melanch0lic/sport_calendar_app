@@ -53,16 +53,13 @@ final _calendarRoutesNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Calen
 
 @immutable
 class AppRouter {
-  // final IInitialRouteService _initialRouteService;
-  static AppRouter? _instance;
-
   final GoRouter router;
 
-  AppRouter._internal()
+  AppRouter({required String initialLocation})
       : router = GoRouter(
           navigatorKey: rootNavigatorKey,
           debugLogDiagnostics: kDebugMode,
-          initialLocation: AuthRoutes.signIn.path,
+          initialLocation: initialLocation,
           routes: [
             // ..._commonRoutes,
             // ..._addAdRoutes,
@@ -71,10 +68,6 @@ class AppRouter {
           ],
           errorBuilder: (_, state) => Placeholder(key: state.pageKey),
         );
-
-  factory AppRouter() {
-    return _instance ??= AppRouter._internal();
-  }
 }
 
 final _commonBottomNavigationBarShellRoute = StatefulShellRoute.indexedStack(
