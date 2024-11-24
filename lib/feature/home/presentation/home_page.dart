@@ -6,7 +6,7 @@ import 'package:sport_calendart_app/core/theme/app_theme.dart';
 import 'package:sport_calendart_app/feature/home/bloc_event/event_bloc.dart';
 import 'package:sport_calendart_app/feature/home/domain/entity/event_data.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/auto_scrolling_listview.dart';
-import 'package:sport_calendart_app/feature/home/presentation/components/container_dropdown.dart';
+import 'package:sport_calendart_app/feature/home/presentation/components/presentation_container_dropdown.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/home_appbar.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/icon_with_notify_circle.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/personality_competition_card.dart';
@@ -135,7 +135,7 @@ class HomePage extends StatelessWidget {
                                             return Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                ContainerDropdown(
+                                                PresentationContainerDropdown(
                                                   sportTypeId: sportTypeId,
                                                   events: events,
                                                 ),

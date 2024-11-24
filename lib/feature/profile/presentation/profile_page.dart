@@ -5,12 +5,12 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
 import 'package:sport_calendart_app/feature/home/bloc_event/event_bloc.dart';
 import 'package:sport_calendart_app/feature/home/domain/entity/event_data.dart';
-import 'package:sport_calendart_app/feature/home/presentation/components/container_dropdown.dart';
+import 'package:sport_calendart_app/feature/home/presentation/components/presentation_container_dropdown.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/placeholders.dart';
 import 'package:sport_calendart_app/feature/home/presentation/home_scope.dart';
 import 'package:sport_calendart_app/feature/profile/presentation/components/custom_button.dart';
 import 'package:sport_calendart_app/feature/profile/presentation/components/profile_appbar.dart';
-import 'package:sport_calendart_app/feature/profile/presentation/components/profile_dropdown.dart';
+import 'package:sport_calendart_app/feature/profile/presentation/components/dropdown_container.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -63,10 +63,10 @@ class ProfilePage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      const ProfileDropdown(name: 'Виды спорта'),
-                      const ProfileDropdown(name: 'Дисциплины'),
-                      const ProfileDropdown(name: 'Места проведения'),
-                      const ProfileDropdown(name: 'Возрастная категория'),
+                      const DropdownContainer(name: 'Виды спорта', content: SizedBox()),
+                      const DropdownContainer(name: 'Дисциплины', content: SizedBox()),
+                      const DropdownContainer(name: 'Места проведения', content: SizedBox()),
+                      const DropdownContainer(name: 'Возрастная категория', content: SizedBox()),
                       const CustomButton(
                         name: 'Сохранить изменения',
                         backColor: Color.fromRGBO(67, 84, 250, 1),
@@ -138,7 +138,7 @@ class ProfilePage extends StatelessWidget {
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        ContainerDropdown(
+                                        PresentationContainerDropdown(
                                           sportTypeId: sportTypeId,
                                           events: events,
                                         ),

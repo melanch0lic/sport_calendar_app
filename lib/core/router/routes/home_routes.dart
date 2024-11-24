@@ -7,7 +7,7 @@ final _homeRoutes = [
   ),
   GoRoute(
     path: HomeRoutes.detail.path,
-    builder: (_, state) => DetailPage(key: state.pageKey),
+    builder: (_, state) => DetailPage(key: state.pageKey, event: state.extra as EventData),
   ),
   GoRoute(
     path: HomeRoutes.notifications.path,

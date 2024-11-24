@@ -7,7 +7,7 @@ import 'package:sport_calendart_app/feature/calendar/presentation/components/cal
 import 'package:sport_calendart_app/feature/calendar/presentation/components/search_text_field.dart';
 import 'package:sport_calendart_app/feature/home/bloc_event/event_bloc.dart';
 import 'package:sport_calendart_app/feature/home/domain/entity/event_data.dart';
-import 'package:sport_calendart_app/feature/home/presentation/components/container_dropdown.dart';
+import 'package:sport_calendart_app/feature/home/presentation/components/presentation_container_dropdown.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/icon_with_notify_circle.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/placeholders.dart';
 import 'package:sport_calendart_app/feature/home/presentation/home_scope.dart';
@@ -106,7 +106,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    ContainerDropdown(
+                                    PresentationContainerDropdown(
                                       sportTypeId: sportTypeId,
                                       events: events,
                                     ),

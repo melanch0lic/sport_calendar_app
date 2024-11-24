@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sport_calendart_app/core/theme/app_theme.dart';
 import 'package:sport_calendart_app/core/utils/extension/extensions.dart';
+import 'package:sport_calendart_app/feature/home/domain/entity/event_data.dart';
+import 'package:sport_calendart_app/feature/home/presentation/components/upcoming_competitons_card.dart';
 import 'package:sport_calendart_app/feature/notification/presentation/notification_scope.dart';
+import 'package:sport_calendart_app/feature/profile/presentation/components/dropdown_container.dart';
 
 import '../../../core/resources/assets.gen.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+  const DetailPage({super.key, required this.event});
 
+  final EventData event;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +32,7 @@ class DetailPage extends StatelessWidget {
           pinned: true,
           forceMaterialTransparency: true,
           stretch: true,
-          expandedHeight: 275.0,
+          expandedHeight: 220.0,
           backgroundColor: Colors.white,
           elevation: 0.0,
           flexibleSpace: FlexibleSpaceBar(
@@ -40,7 +45,7 @@ class DetailPage extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Transform.scale(
-                    scale: 1.4,
+                    scale: 1.3,
                     child: Image.asset(
                       Assets.images.pattern.path,
                     ),
@@ -49,11 +54,10 @@ class DetailPage extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 8),
+                    padding: const EdgeInsets.only(left: 16),
                     child: Text(
-                      'Чемпионат России \nи Первенство России',
-                      style: context.theme.commonTextStyles.title1
-                          .copyWith(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                      event.eventName,
+                      style: CommonTextStyles().largeTitle,
                     ),
                   ),
                 ),
@@ -105,10 +109,11 @@ class DetailPage extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -122,9 +127,9 @@ class DetailPage extends StatelessWidget {
                           color: context.theme.commonColors.indigo,
                         ),
                         const SizedBox(width: 8),
-                        const Text(
-                          '16 фев - 19 фев.',
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                        Text(
+                          '${formatTimestamp(event.eventStartDate.toIso8601String())} — ${formatTimestamp(event.eventEndDate.toIso8601String())}',
+                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                         )
                       ],
                     ),
@@ -138,29 +143,30 @@ class DetailPage extends StatelessWidget {
                           color: context.theme.commonColors.indigo,
                         ),
                         const SizedBox(width: 8),
-                        const Text(
-                          '25 участников',
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                        Text(
+                          '${event.eventParticipants} участников',
+                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                         )
                       ],
                     )
                   ],
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     SvgPicture.asset(
                       Assets.icons.malefemale.path,
-                      width: 30,
-                      height: 30,
+                      width: 22,
+                      height: 22,
                     ),
-                    const Text(
-                      'Юноши и девушки от 16 лет',
-                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${event.eventGender} от ${event.eventAgeMin} лет',
+                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     SvgPicture.asset(
@@ -169,16 +175,31 @@ class DetailPage extends StatelessWidget {
                       width: 22,
                     ),
                     const SizedBox(width: 8),
-                    const Text(
-                      'Россия, Г. Москва',
-                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                    Text(
+                      event.eventLocation,
+                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 24,
+                const SizedBox(height: 24),
+                DropdownContainer(
+                  name: 'Виды спорта',
+                  content: TagWidgetEvent(
+                    name: event.sportTypeId,
+                  ),
                 ),
-                const TagWidgetEvent()
+                DropdownContainer(
+                    name: 'Дисциплины',
+                    content: TagWidgetEvent(
+                      name: event.disciplinesData.first,
+                    )),
+                DropdownContainer(
+                  name: 'Описание',
+                  content: Text(
+                    'Здесь могло бы быть ваше описание...',
+                    style: CommonTextStyles().body,
+                  ),
+                )
               ],
             ),
           ),
@@ -191,8 +212,9 @@ class DetailPage extends StatelessWidget {
 class TagWidgetEvent extends StatelessWidget {
   const TagWidgetEvent({
     super.key,
+    required this.name,
   });
-
+  final String name;
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -200,18 +222,18 @@ class TagWidgetEvent extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromRGBO(239, 246, 255, 1), // Set background color
+          backgroundColor: const Color.fromRGBO(239, 246, 255, 1),
           side: const BorderSide(
-            color: Color.fromRGBO(67, 84, 250, 1), // Set border color
+            color: Color.fromRGBO(67, 84, 250, 1),
             width: 1, // Border width
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12), // Optional border radius
+            borderRadius: BorderRadius.circular(12),
           ),
         ),
         child: Text(
-          "Спортивное программирование",
-          style: context.theme.commonTextStyles.body1, // Text color
+          name,
+          style: CommonTextStyles().body,
         ),
       ),
     );

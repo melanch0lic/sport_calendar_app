@@ -18,7 +18,7 @@ class PersonalityCompetitionCard extends StatelessWidget {
     final bool isActive = event.eventStartDate.isBefore(DateTime.now().toUtc().add(const Duration(days: 1)));
     return GestureDetector(
       onTap: () {
-        context.push(HomeRoutes.detail.path);
+        context.push(HomeRoutes.detail.path, extra: event);
       },
       child: Container(
         width: double.infinity,
@@ -34,6 +34,7 @@ class PersonalityCompetitionCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 Row(
                   children: [
                     SvgPicture.asset(
