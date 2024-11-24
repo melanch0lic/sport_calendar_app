@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sport_calendart_app/core/router/routes_enum.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
 import 'package:sport_calendart_app/feature/auth/data/bloc/bloc/auth_bloc.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/auth_scope.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/otp_page/components/refresh_code.dart';
-
 import 'package:sport_calendart_app/runner/dependency_scope.dart';
 
 import '../../../../../core/utils/text_field_outline_border.dart';
@@ -115,9 +115,9 @@ class _OtpPageState extends State<OtpPage> {
                                 bloc: DependenciesScope.of(context).resolve<AuthBloc>(),
                                 listener: (context, state) {
                                   if (state is AuthAuthenticated) {
-                                    context.go('/home_routes/home');
+                                    context.go(HomeRoutes.home.path);
                                   }
-                                  context.go('/auth_routes/pref');
+
                                   if (state is AuthOtpSentError) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Произошла ошибка при отправке кода')),

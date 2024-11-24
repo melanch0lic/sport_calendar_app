@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sport_calendart_app/core/router/routes_enum.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
 
 class NavigateToRegister extends StatelessWidget {
@@ -20,7 +21,7 @@ class NavigateToRegister extends StatelessWidget {
                 ),
           ),
           InkWell(
-            onTap: () => context.go('/auth_routes/sign_up'),
+            onTap: () => context.push(AuthRoutes.signUp.path),
             child: Text(
               ' Создайте его',
               style: CommonTextStyles()

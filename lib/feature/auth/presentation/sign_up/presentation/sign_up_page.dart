@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sport_calendart_app/core/router/routes_enum.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
 import 'package:sport_calendart_app/feature/auth/data/bloc/bloc/auth_bloc.dart';
 import 'package:sport_calendart_app/feature/auth/data/bloc/bloc/auth_state.dart';
@@ -141,7 +142,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         }
 
                                         AuthScope.of(context).signUp(login, password);
-                                        context.go('/auth_routes/otp');
+                                        context.push(AuthRoutes.otp.path);
                                       }
                                     : null,
                                 style: ElevatedButton.styleFrom(
