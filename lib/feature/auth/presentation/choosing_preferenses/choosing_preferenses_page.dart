@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sport_calendart_app/core/router/routes_enum.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/choosing_preferenses/components/category_age.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/choosing_preferenses/components/preferenses_text_field.dart';
@@ -55,7 +57,9 @@ class ChoosingPreferensesPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                context.go(HomeRoutes.home.path);
+                              },
                               child: Center(
                                 child: Text(
                                   'Далее',
@@ -79,7 +83,9 @@ class ChoosingPreferensesPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                context.go(HomeRoutes.home.path);
+                              },
                               child: Center(
                                 child: Text(
                                   'Пропустить',

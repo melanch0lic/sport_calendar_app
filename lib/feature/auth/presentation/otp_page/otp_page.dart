@@ -115,7 +115,7 @@ class _OtpPageState extends State<OtpPage> {
                                 bloc: DependenciesScope.of(context).resolve<AuthBloc>(),
                                 listener: (context, state) {
                                   if (state is AuthAuthenticated) {
-                                    context.go(HomeRoutes.home.path);
+                                    context.go(AuthRoutes.choosingPreferenses.path);
                                   }
 
                                   if (state is AuthOtpSentError) {

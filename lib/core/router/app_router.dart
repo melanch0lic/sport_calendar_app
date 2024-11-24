@@ -36,6 +36,7 @@ import 'package:sport_calendart_app/feature/auth/presentation/choosing_preferens
 import 'package:sport_calendart_app/feature/auth/presentation/sign_in/presentation/sign_in_page.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/sign_up/presentation/sign_up_page.dart';
 import 'package:sport_calendart_app/feature/calendar/presentation/calendar_page.dart';
+import 'package:sport_calendart_app/feature/home/presentation/detail_page.dart';
 import 'package:sport_calendart_app/feature/profile/presentation/profile_page.dart';
 
 import '../../feature/auth/presentation/otp_page/otp_page.dart';
@@ -62,7 +63,6 @@ class AppRouter {
           navigatorKey: rootNavigatorKey,
           debugLogDiagnostics: kDebugMode,
           initialLocation: initialLocation,
-
           routes: [
             // ..._commonRoutes,
             // ..._addAdRoutes,
