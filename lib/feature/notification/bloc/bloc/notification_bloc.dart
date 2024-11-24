@@ -12,9 +12,15 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     required this.notificationRepository,
   }) : super(NotificationInitial()) {
     on<NotificationEvent>((event, emit) async {
-      switch (event.runtimeType) {
-        case InitializeNotifications:
-          await _onInitializeNotifications(event as InitializeNotifications, emit);
+      switch (event) {
+        case InitializeNotifications():
+          await _onInitializeNotifications(event, emit);
+        case SubscribeToTopic():
+          await _onTopicSubcribe(event, emit);
+        case UnsubscribeFromTopic():
+          await _onTopicUnsubcribe(event, emit);
+        case UpdateFcmToken():
+        // TODO: Handle this case.
       }
     });
   }
@@ -57,6 +63,22 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         );
       }
       emit(NotificationSuccess());
+    } catch (e) {
+      emit(NotificationFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onTopicSubcribe(SubscribeToTopic event, Emitter<NotificationState> emit) async {
+    try {
+      await notificationRepository.subscribeToTopic(event.topic);
+    } catch (e) {
+      emit(NotificationFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onTopicUnsubcribe(UnsubscribeFromTopic event, Emitter<NotificationState> emit) async {
+    try {
+      await notificationRepository.unsubscribeFromTopic(event.topic);
     } catch (e) {
       emit(NotificationFailure(e.toString()));
     }
