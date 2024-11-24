@@ -22,9 +22,9 @@ class NavigateToLogin extends StatelessWidget {
                 ),
           ),
           InkWell(
-            onTap: () => context.go('/auth_routes/sign_in'),
+            onTap: () => context.pop(),
             child: Text(
-              ' Войдите',
+              'Войдите',
               style: CommonTextStyles()
                   .body
                   .copyWith(fontSize: 16, color: const Color.fromRGBO(67, 84, 250, 1), fontWeight: FontWeight.w600),

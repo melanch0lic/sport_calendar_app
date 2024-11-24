@@ -72,6 +72,7 @@ dependencies:
   firebase_crashlytics: ^4.1.5
   unixtime: ^1.0.0
   jwt_decoder: ^2.0.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

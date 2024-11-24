@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport_calendart_app/core/modules/auth/token_storage.dart';
 import 'package:sport_calendart_app/core/modules/dio_module.dart';
@@ -17,11 +18,15 @@ import 'package:sport_calendart_app/feature/auth/data/bloc/bloc/auth_bloc.dart';
 import 'package:sport_calendart_app/feature/auth/data/datasources/auth_datasource.dart';
 import 'package:sport_calendart_app/feature/auth/data/datasources/token_storage_sp.dart';
 import 'package:sport_calendart_app/feature/auth/data/repositories/auth_repository_implementation.dart';
+import 'package:sport_calendart_app/feature/home/data/repositories/mock_event_repository_implementation.dart';
+import 'package:sport_calendart_app/feature/home/domain/repositories/event_repository.dart';
 import 'package:sport_calendart_app/feature/notification/data/repositories/notification_repository_implementation.dart';
 import 'package:sport_calendart_app/firebase_options.dart';
 import 'package:sport_calendart_app/runner/dependency_scope.dart';
 
 import '../core/environment/app_environment.dart';
+import '../core/router/app_router.dart';
+import '../core/router/routes_enum.dart';
 import '../core/splash_util/splash_util.dart';
 import '../feature/app/app.dart';
 import '../feature/auth/logic/auth_interceptor.dart';
@@ -72,6 +77,12 @@ Future<DIContainer> _initDependencies() async {
   final prefs = await SharedPreferences.getInstance();
 
   final TokenStorage<Token> tokenStorage = TokenStorageSP(sharedPreferences: prefs);
+  // await tokenStorage.clear();
+  final isLogged = await tokenStorage.hasToken();
+
+  final GoRouter router = AppRouter(initialLocation: isLogged ? HomeRoutes.home.path : AuthRoutes.signIn.path).router;
+
+  diContainer.registerSingleton<GoRouter>(router);
 
   final DioModule dioModule = DioModule();
 
@@ -85,6 +96,7 @@ Future<DIContainer> _initDependencies() async {
 
   diContainer.registerSingleton<DioModule>(dioModule);
   diContainer.registerSingleton<NotificationRepository>(NotificationRepositoryImplementation(firebaseMessaging, prefs));
+  diContainer.registerSingleton<EventRepository>(MockEventRepositoryImplementation());
   diContainer.registerSingleton<AuthBloc>(AuthBloc(authRepository: authRepository));
 
   return diContainer;

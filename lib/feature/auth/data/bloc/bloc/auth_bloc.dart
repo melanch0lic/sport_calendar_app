@@ -25,8 +25,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      await authRepository.signInWithEmailAndPassword(event.email, event.password);
-      emit(AuthOtpSent());
+      final token = await authRepository.signInWithEmailAndPassword(event.email, event.password);
+      emit(AuthAuthenticated(
+        accessToken: token.accessToken,
+        refreshToken: token.refreshToken,
+      ));
     } catch (e) {
       emit(AuthError(message: e.toString()));
     }

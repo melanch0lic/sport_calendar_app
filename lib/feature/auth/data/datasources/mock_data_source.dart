@@ -19,14 +19,14 @@ class MockAuthDataSource implements AuthDataSource<Token> {
   }
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
+  Future<Token> signInWithEmailAndPassword(String email, String password) async {
     print(email);
     print(password);
     print(_mockDatabase[email]);
     // Simulate signing in with email and password
     if (_mockDatabase[email] == password) {
       await Future.delayed(const Duration(seconds: 1));
-      print("Go to OTP page");
+      return Future.value(Token(_mockToken, _mockRefreshToken));
     } else {
       throw Exception("Invalid email or password");
     }

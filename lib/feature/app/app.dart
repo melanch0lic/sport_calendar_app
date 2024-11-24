@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/auth_scope.dart';
+import 'package:sport_calendart_app/feature/notification/presentation/notification_scope.dart';
+import 'package:sport_calendart_app/runner/dependency_scope.dart';
 
-import '../../core/router/app_router.dart';
 import '../../core/theme/app_theme.dart';
 
 class StreakerApp extends StatelessWidget {
@@ -22,19 +23,20 @@ class _MaterialApp extends StatefulWidget {
 }
 
 class _MaterialAppState extends State<_MaterialApp> {
-  final GoRouter _router = AppRouter().router;
   @override
   Widget build(BuildContext context) {
-    return AuthScope(
-      child: MaterialApp.router(
-        // locale: LocalizationScope.localeOf(context),
-        // localizationsDelegates: AppLocalizations.localizationsDelegates,
-        // supportedLocales: AppLocalizations.supportedLocales,
-        routerConfig: _router,
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightThemeData,
-        builder: (context, child) => _MediaQuery(
-          child: child ?? const SizedBox.shrink(),
+    return NotificationScope(
+      child: AuthScope(
+        child: MaterialApp.router(
+          // locale: LocalizationScope.localeOf(context),
+          // localizationsDelegates: AppLocalizations.localizationsDelegates,
+          // supportedLocales: AppLocalizations.supportedLocales,
+          routerConfig: DependenciesScope.of(context).resolve<GoRouter>(),
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightThemeData,
+          builder: (context, child) => _MediaQuery(
+            child: child ?? const SizedBox.shrink(),
+          ),
         ),
       ),
     );

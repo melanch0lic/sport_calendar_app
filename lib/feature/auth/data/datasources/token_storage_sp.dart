@@ -35,6 +35,9 @@ final class TokenStorageSP implements TokenStorage<Token> {
   }
 
   @override
+  Future<bool> hasToken() async => _accessToken.read() != null;
+
+  @override
   Future<void> save(Token tokenPair) async {
     await (_accessToken.set(tokenPair.accessToken), _refreshToken.set(tokenPair.refreshToken)).wait;
 

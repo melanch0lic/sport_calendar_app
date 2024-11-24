@@ -106,7 +106,7 @@ class _SignInPageState extends State<SignInPage> {
                           const Spacer(),
                           SizedBox(
                             height: 48,
-                            child: BlocListener<AuthBloc, AuthState>(
+                            child: BlocConsumer<AuthBloc, AuthState>(
                               bloc: DependenciesScope.of(context).resolve<AuthBloc>(),
                               listener: (context, state) {
                                 if (state is AuthError) {
@@ -116,33 +116,31 @@ class _SignInPageState extends State<SignInPage> {
                                     ),
                                   );
                                 }
-                                if (state is AuthOtpSent) {
-                                  context.push(AuthRoutes.otp.path);
+                                if (state is AuthAuthenticated) {
+                                  context.go(HomeRoutes.home.path);
                                 }
                               },
-                              child: FilledButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color.fromRGBO(67, 84, 250, 1),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
+                              builder: (context, state) => FilledButton(
+                                style: theme.elevatedButtonTheme.style,
                                 onPressed: () {
                                   AuthScope.of(context).signInWithEmailAndPassword(
                                     _emailController.text,
                                     _passwordController.text,
                                   );
                                 },
-                                child: Center(
-                                  child: Text(
-                                    'Войти',
-                                    style: CommonTextStyles().body.copyWith(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white,
+
+                                child: state is AuthLoading
+                                    ? const CircularProgressIndicator()
+                                    : Center(
+                                        child: Text(
+                                          'Войти',
+                                          style: CommonTextStyles().body.copyWith(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white,
+                                              ),
                                         ),
-                                  ),
-                                ),
+                                      ),
                               ),
                             ),
                           ),

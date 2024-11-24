@@ -36,6 +36,8 @@ abstract interface class TokenStorage<T> {
   /// state.
   Stream<T?> getStream();
 
+  Future<bool> hasToken();
+
   /// Closes the storage.
   ///
   /// After this method is called, the storage should not be used anymore.
