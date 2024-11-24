@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:sport_calendart_app/feature/auth/domain/entity/auth_login_request.dart';
@@ -67,10 +69,7 @@ final class AuthDataSourceNetwork implements AuthDataSource<Token> {
     try {
       final token = await FirebaseMessaging.instance.getToken() ?? 'None';
       await _authApi.signUp(
-        AuthRequest(email: email, password: password, deviceToken: token
-            // +
-            // Random().nextInt(100).toString()
-            ),
+        AuthRequest(email: email, password: password, deviceToken: token + Random().nextInt(100).toString()),
       );
     } on DioException catch (error) {
       if (error.response?.statusCode == 401 || error.response?.statusCode == 403) {
