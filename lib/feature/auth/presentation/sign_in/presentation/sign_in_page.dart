@@ -121,20 +121,27 @@ class _SignInPageState extends State<SignInPage> {
                                 }
                               },
                               child: FilledButton(
-                                style: theme.elevatedButtonTheme.style,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color.fromRGBO(67, 84, 250, 1),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
                                 onPressed: () {
                                   AuthScope.of(context).signInWithEmailAndPassword(
                                     _emailController.text,
                                     _passwordController.text,
                                   );
                                 },
-                                child: Text(
-                                  'Войти',
-                                  style: CommonTextStyles().body.copyWith(
-                                        fontSize: 16,
+                                child: Center(
+                                  child: Text(
+                                    'Войти',
+                                    style: CommonTextStyles().body.copyWith(
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
+                                          color: Colors.white,
+                                        ),
+                                  ),
                                 ),
                               ),
                             ),

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
 import 'package:sport_calendart_app/feature/calendar/presentation/components/calendar_appbar.dart';
 import 'package:sport_calendart_app/feature/calendar/presentation/components/calendar_container.dart';
+import 'package:sport_calendart_app/feature/calendar/presentation/components/search_text_field.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/icon_with_notify_circle.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/personality_competition_card.dart';
 
@@ -25,6 +26,8 @@ class _CalendarPageState extends State<CalendarPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 36),
+                const SearchTextField(),
                 const SizedBox(height: 36),
                 const CalendarContainer(),
                 const SizedBox(height: 36),

@@ -14,6 +14,7 @@ class BottomNavBar extends StatelessWidget {
     final bottomPadding = MediaQuery.of(context).padding.bottom;
     return Container(
       decoration: BoxDecoration(
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: context.theme.commonColors.neutralgrey10.withOpacity(.2),
@@ -22,42 +23,48 @@ class BottomNavBar extends StatelessWidget {
           ),
         ],
       ),
-      height: 56 + 20 + bottomPadding,
-      child: Container(
-        decoration: BoxDecoration(
-          color: context.theme.commonColors.white,
-        ),
-        padding: EdgeInsets.only(bottom: bottomPadding),
-        margin: const EdgeInsets.only(top: 20),
-        child: Material(
-          color: context.theme.commonColors.white,
-          child: SizedBox(
-            height: 64,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _NavBarItem(
-                  onTap: (index) => BottomNavigationScope.change(context, index),
-                  index: 0,
-                  currentIndex: currentIndex,
-                  asset: Assets.navBar.home,
+      height: 80 + bottomPadding,
+      child: Column(
+        children: [
+          const Divider(
+            color: Color.fromRGBO(236, 239, 243, 1),
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            padding: EdgeInsets.only(bottom: bottomPadding),
+            child: Material(
+              color: Colors.white,
+              child: SizedBox(
+                height: 55,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _NavBarItem(
+                      onTap: (index) => BottomNavigationScope.change(context, index),
+                      index: 0,
+                      currentIndex: currentIndex,
+                      asset: Assets.navBar.home,
+                    ),
+                    _NavBarItem(
+                      onTap: (index) => BottomNavigationScope.change(context, index),
+                      index: 1,
+                      currentIndex: currentIndex,
+                      asset: Assets.navBar.calendar,
+                    ),
+                    _NavBarItem(
+                      onTap: (index) => BottomNavigationScope.change(context, index),
+                      index: 2,
+                      currentIndex: currentIndex,
+                      asset: Assets.navBar.profile,
+                    ),
+                  ],
                 ),
-                _NavBarItem(
-                  onTap: (index) => BottomNavigationScope.change(context, index),
-                  index: 1,
-                  currentIndex: currentIndex,
-                  asset: Assets.navBar.search,
-                ),
-                _NavBarItem(
-                  onTap: (index) => BottomNavigationScope.change(context, index),
-                  index: 2,
-                  currentIndex: currentIndex,
-                  asset: Assets.navBar.profile,
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -78,20 +85,19 @@ class _NavBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.theme.commonColors;
     final isSelected = index == currentIndex;
     return InkWell(
       onTap: () => onTap(index),
       borderRadius: const BorderRadius.all(Radius.circular(100)),
       child: Ink(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? colors.green10 : colors.neutralgrey3,
         ),
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(15),
         child: asset.svg(
+          width: 24,
           colorFilter: ColorFilter.mode(
-            isSelected ? colors.green100 : colors.darkGrey30,
+            isSelected ? const Color.fromRGBO(67, 84, 250, 1) : const Color.fromRGBO(163, 165, 171, 1),
             BlendMode.srcIn,
           ),
         ),

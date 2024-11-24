@@ -32,7 +32,8 @@ enum CalendarRoutes {
 enum AuthRoutes {
   signIn(path: '${_authRoutesKey}sign_in'),
   signUp(path: '${_authRoutesKey}sign_up'),
-  otp(path: '${_authRoutesKey}otp');
+  otp(path: '${_authRoutesKey}otp'),
+  choosingPreferenses(path: '${_authRoutesKey}pref');
 
   final String path;
   const AuthRoutes({

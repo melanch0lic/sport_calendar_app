@@ -4,7 +4,7 @@ import '../../../error/error_handler.dart';
 import '../../../resources/assets.gen.dart';
 
 extension ErrorExtension on BuildContext {
-  /* TODO: Заменить на локализованные */
+
   String messageFromError(IErrorHandler errorHandler) => errorHandler.when(
         timeout: (_) => 'timeout',
         dio: (_) => 'unexpected_error',
@@ -20,7 +20,7 @@ extension ErrorExtension on BuildContext {
         message: (message) => message,
       );
 
-  /* TODO: Заменить на картинки ошибок */
+
   Widget imageFromError(IErrorHandler errorHandler) => errorHandler.when(
         timeout: (_) => Assets.icons.arrowLeft.svg(),
         dio: (_) => Assets.icons.arrowLeft.svg(),

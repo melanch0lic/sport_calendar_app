@@ -32,9 +32,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sport_calendart_app/feature/auth/presentation/choosing_preferenses/choosing_preferenses_page.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/sign_in/presentation/sign_in_page.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/sign_up/presentation/sign_up_page.dart';
 import 'package:sport_calendart_app/feature/calendar/presentation/calendar_page.dart';
+import 'package:sport_calendart_app/feature/profile/presentation/profile_page.dart';
 
 import '../../feature/auth/presentation/otp_page/otp_page.dart';
 import '../../feature/home/presentation/home_page.dart';
@@ -62,7 +64,7 @@ class AppRouter {
       : router = GoRouter(
           navigatorKey: rootNavigatorKey,
           debugLogDiagnostics: kDebugMode,
-          initialLocation: AuthRoutes.signIn.path,
+          initialLocation: HomeRoutes.home.path,
           routes: [
             // ..._commonRoutes,
             // ..._addAdRoutes,

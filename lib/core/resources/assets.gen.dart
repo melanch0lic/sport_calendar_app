@@ -218,6 +218,9 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/bubbles.png
+  AssetGenImage get bubbles => const AssetGenImage('assets/images/bubbles.png');
+
   /// File path: assets/images/coin.png
   AssetGenImage get coin => const AssetGenImage('assets/images/coin.png');
 
@@ -225,11 +228,14 @@ class $AssetsImagesGen {
   AssetGenImage get pattern => const AssetGenImage('assets/images/pattern.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [coin, pattern];
+  List<AssetGenImage> get values => [bubbles, coin, pattern];
 }
 
 class $AssetsNavBarGen {
   const $AssetsNavBarGen();
+
+  /// File path: assets/nav_bar/calendar.svg
+  SvgGenImage get calendar => const SvgGenImage('assets/nav_bar/calendar.svg');
 
   /// File path: assets/nav_bar/favourite.svg
   SvgGenImage get favourite => const SvgGenImage('assets/nav_bar/favourite.svg');
@@ -247,7 +253,7 @@ class $AssetsNavBarGen {
   SvgGenImage get search => const SvgGenImage('assets/nav_bar/search.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [favourite, home, plus, profile, search];
+  List<SvgGenImage> get values => [calendar, favourite, home, plus, profile, search];
 }
 
 class $AssetsIconsFlagsGen {

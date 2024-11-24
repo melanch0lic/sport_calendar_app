@@ -28,7 +28,7 @@ class HomeAppBar extends StatelessWidget {
           const Column(
             children: [
               IconWithNotifyCircle(icon: 'assets/icons/bell.svg'),
-              SizedBox(height: 15),
+              SizedBox(height: 35),
             ],
           ),
         ],
