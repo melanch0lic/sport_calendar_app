@@ -132,7 +132,7 @@ class _SignInPageState extends State<SignInPage> {
                                     ? const CircularProgressIndicator()
                                     : Center(
                                         child: Text(
-                                          'Создать аккаунт',
+                                          'Войти',
                                           style: CommonTextStyles().body.copyWith(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,

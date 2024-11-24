@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_calendart_app/feature/home/bloc_event/event_bloc.dart';
 
 // import '../../localization_control/bloc/localization_control_bloc.dart';
 // import '../../localization_control/presentation/localization_scope.dart';
+import '../../../runner/dependency_scope.dart';
 import '../bloc/home_bloc.dart';
+import '../domain/repositories/event_repository.dart';
 
 @immutable
 class HomeScope extends StatelessWidget {
@@ -19,7 +22,10 @@ class HomeScope extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocProvider<HomeBloc>(
         create: (context) => HomeBloc(),
-        child: _LocaleListener(child: child),
+        child: BlocProvider<EventBloc>(
+          create: (context) => EventBloc(DependenciesScope.of(context).resolve<EventRepository>())..add(LoadEvents()),
+          child: _LocaleListener(child: child),
+        ),
       );
 }
 

@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../core/error/api_error/error_response.dart';
+
 part 'auth_response.g.dart';
 
 @JsonSerializable()
@@ -43,19 +45,4 @@ class AuthTokenData {
   factory AuthTokenData.fromJson(Map<String, dynamic> json) => _$AuthTokenDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$AuthTokenDataToJson(this);
-}
-
-@JsonSerializable()
-class ErrorResponse {
-  final int code;
-  final String message;
-
-  ErrorResponse({
-    required this.code,
-    required this.message,
-  });
-
-  factory ErrorResponse.fromJson(Map<String, dynamic> json) => _$ErrorResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ErrorResponseToJson(this);
 }

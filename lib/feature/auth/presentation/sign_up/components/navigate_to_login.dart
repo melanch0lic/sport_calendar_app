@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sport_calendart_app/core/router/routes_enum.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
 
 class NavigateToLogin extends StatelessWidget {
@@ -23,9 +22,9 @@ class NavigateToLogin extends StatelessWidget {
                 ),
           ),
           InkWell(
-            onTap: () => context.go(AuthRoutes.signIn.path),
+            onTap: () => context.pop(),
             child: Text(
-              ' Войдите',
+              'Войдите',
               style: CommonTextStyles()
                   .body
                   .copyWith(fontSize: 16, color: const Color.fromRGBO(67, 84, 250, 1), fontWeight: FontWeight.w600),

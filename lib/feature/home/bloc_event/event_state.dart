@@ -7,7 +7,7 @@ class EventInitial extends EventState {}
 class EventLoading extends EventState {}
 
 class EventLoaded extends EventState {
-  final List<Event> events;
+  final List<EventData> events;
 
   EventLoaded(this.events);
 }

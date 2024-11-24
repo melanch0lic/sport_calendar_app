@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_calendart_app/core/ui_kit/skeleton.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sport_calendart_app/feature/home/bloc_event/event_bloc.dart';
-import 'package:sport_calendart_app/feature/home/data/mock_event_repository_implementation.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/upcoming_competitons_card.dart';
 
 class AutoScrollingListView extends StatefulWidget {
@@ -58,37 +57,50 @@ class _AutoScrollingListViewState extends State<AutoScrollingListView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => EventBloc(MockEventRepositoryImplementation())..add(LoadEvents()),
-      child: SizedBox(
-        height: 200,
-        child: BlocBuilder<EventBloc, EventState>(
-          builder: (context, state) {
-            if (state is EventLoading) {
-              Skeleton.rect(
-                width: MediaQuery.of(context).size.width * 0.85,
-                height: 400,
-                borderRadius: BorderRadius.circular(16),
-              );
-            } else if (state is EventLoaded) {
-              return ListView.separated(
-                controller: _scrollController,
-                itemCount: state.events.length,
-                scrollDirection: Axis.horizontal,
-                separatorBuilder: (context, index) => const SizedBox(width: 12),
-                itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    child: UpcomingCompetitonsCard(event: state.events[index]),
-                  );
-                },
-              );
-            } else if (state is EventError) {
-              return Center(child: Text(state.message));
-            }
-            return const Center(child: Text("Нет данных"));
-          },
-        ),
+    return SizedBox(
+      height: 200,
+      child: BlocBuilder<EventBloc, EventState>(
+        builder: (context, state) {
+          if (state is EventLoading) {
+            return Shimmer.fromColors(
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade100,
+                child: ListView.separated(
+                  controller: _scrollController,
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  separatorBuilder: (context, index) => const SizedBox(width: 12),
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.85,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16).copyWith(bottom: 20),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Colors.white,
+                          ),
+                        ));
+                  },
+                ));
+          } else if (state is EventLoaded) {
+            return ListView.separated(
+              controller: _scrollController,
+              itemCount: state.events.length,
+              scrollDirection: Axis.horizontal,
+              separatorBuilder: (context, index) => const SizedBox(width: 12),
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  child: UpcomingCompetitonsCard(event: state.events[index]),
+                );
+              },
+            );
+          } else if (state is EventError) {
+            return Center(child: Text(state.message));
+          }
+          return const Center(child: Text("Нет данных"));
+        },
       ),
     );
   }
