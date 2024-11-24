@@ -6,6 +6,10 @@ final _homeRoutes = [
     builder: (_, state) => HomePage(key: state.pageKey),
   ),
   GoRoute(
+    path: HomeRoutes.detail.path,
+    builder: (_, state) => DetailPage(key: state.pageKey),
+  ),
+  GoRoute(
     path: HomeRoutes.notifications.path,
     builder: (_, state) => Placeholder(key: state.pageKey),
   ),

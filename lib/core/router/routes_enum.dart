@@ -10,7 +10,8 @@ const _calendarRoutesKey = '/calendar_routes/';
 
 enum HomeRoutes {
   home(path: '${_homeRoutesKey}home'),
-  notifications(path: '${_homeRoutesKey}notifications');
+  notifications(path: '${_homeRoutesKey}notifications'),
+  detail(path: '${_homeRoutesKey}home/detail');
 
   final String path;
 

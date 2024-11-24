@@ -17,7 +17,7 @@ class _ButtonStyles {
   final textButtonThemeData = TextButtonThemeData(
     style: TextButton.styleFrom(
       textStyle: _commonTextStyles.body,
-      foregroundColor: _commonColors.green100,
+      foregroundColor: _commonColors.indigo,
     ),
   );
 

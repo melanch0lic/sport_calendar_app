@@ -108,6 +108,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/logo.svg
   SvgGenImage get logo => const SvgGenImage('assets/icons/logo.svg');
 
+  /// File path: assets/icons/malefemale.svg
+  SvgGenImage get malefemale => const SvgGenImage('assets/icons/malefemale.svg');
+
   /// File path: assets/icons/man.svg
   SvgGenImage get man => const SvgGenImage('assets/icons/man.svg');
 
@@ -197,6 +200,7 @@ class $AssetsIconsGen {
         liked,
         location,
         logo,
+        malefemale,
         man,
         more,
         moreVert,
