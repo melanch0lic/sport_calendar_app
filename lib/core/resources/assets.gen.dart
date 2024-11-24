@@ -234,6 +234,9 @@ class $AssetsImagesGen {
 class $AssetsNavBarGen {
   const $AssetsNavBarGen();
 
+  /// File path: assets/nav_bar/calendar.svg
+  SvgGenImage get calendar => const SvgGenImage('assets/nav_bar/calendar.svg');
+
   /// File path: assets/nav_bar/favourite.svg
   SvgGenImage get favourite => const SvgGenImage('assets/nav_bar/favourite.svg');
 
@@ -250,7 +253,7 @@ class $AssetsNavBarGen {
   SvgGenImage get search => const SvgGenImage('assets/nav_bar/search.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [favourite, home, plus, profile, search];
+  List<SvgGenImage> get values => [calendar, favourite, home, plus, profile, search];
 }
 
 class $AssetsIconsFlagsGen {

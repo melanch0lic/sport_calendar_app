@@ -13,4 +13,8 @@ final _authRoutes = [
     path: AuthRoutes.otp.path,
     builder: (_, state) => OtpPage(key: state.pageKey),
   ),
+  GoRoute(
+    path: AuthRoutes.choosingPreferenses.path,
+    builder: (_, state) => ChoosingPreferensesPage(key: state.pageKey),
+  ),
 ];

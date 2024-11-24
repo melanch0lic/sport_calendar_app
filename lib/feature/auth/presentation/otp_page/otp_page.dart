@@ -5,7 +5,7 @@ import 'package:sport_calendart_app/core/theme/app_theme.dart';
 import 'package:sport_calendart_app/feature/auth/data/bloc/bloc/auth_bloc.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/auth_scope.dart';
 import 'package:sport_calendart_app/feature/auth/presentation/otp_page/components/refresh_code.dart';
-import 'package:sport_calendart_app/feature/auth/presentation/sign_in/components/navigate_to_register.dart';
+
 import 'package:sport_calendart_app/runner/dependency_scope.dart';
 
 import '../../../../../core/utils/text_field_outline_border.dart';
@@ -117,7 +117,7 @@ class _OtpPageState extends State<OtpPage> {
                                   if (state is AuthAuthenticated) {
                                     context.go('/home_routes/home');
                                   }
-
+                                  context.go('/auth_routes/pref');
                                   if (state is AuthOtpSentError) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Произошла ошибка при отправке кода')),
@@ -125,17 +125,24 @@ class _OtpPageState extends State<OtpPage> {
                                   }
                                 },
                                 child: FilledButton(
-                                  style: theme.elevatedButtonTheme.style,
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color.fromRGBO(67, 84, 250, 1),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
                                   onPressed: () {
                                     AuthScope.of(context).checkEmailCode(_otpController.text);
                                   },
-                                  child: Text(
-                                    'Подтвердить',
-                                    style: CommonTextStyles().body.copyWith(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white,
-                                        ),
+                                  child: Center(
+                                    child: Text(
+                                      'Подтвердить',
+                                      style: CommonTextStyles().body.copyWith(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               ),

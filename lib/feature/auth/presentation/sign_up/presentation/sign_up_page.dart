@@ -145,8 +145,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                       }
                                     : null,
                                 style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                                  elevation: 0,
+                                  backgroundColor: const Color.fromRGBO(67, 84, 250, 1),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
                                 ),
                                 child: state is AuthLoading
                                     ? const CircularProgressIndicator()

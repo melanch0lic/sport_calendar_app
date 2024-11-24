@@ -5,9 +5,11 @@ class IconWithNotifyCircle extends StatelessWidget {
   const IconWithNotifyCircle({
     super.key,
     required this.icon,
+    this.color,
   });
 
   final String icon;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -15,6 +17,7 @@ class IconWithNotifyCircle extends StatelessWidget {
       children: [
         SvgPicture.asset(
           icon,
+          color: color,
         ),
         Positioned(
           top: -7,

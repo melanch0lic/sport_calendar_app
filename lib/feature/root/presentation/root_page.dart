@@ -20,6 +20,7 @@ class RootPage extends StatelessWidget {
         listener: _bottomNavListener,
         builder: (context, state) {
           return Scaffold(
+            backgroundColor: Colors.white,
             extendBody: true,
             extendBodyBehindAppBar: true,
             bottomNavigationBar: BottomNavBar(currentIndex: state.currentPageIndex),

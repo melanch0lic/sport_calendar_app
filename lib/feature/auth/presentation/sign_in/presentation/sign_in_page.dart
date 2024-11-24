@@ -128,6 +128,7 @@ class _SignInPageState extends State<SignInPage> {
                                     _passwordController.text,
                                   );
                                 },
+
                                 child: state is AuthLoading
                                     ? const CircularProgressIndicator()
                                     : Center(
