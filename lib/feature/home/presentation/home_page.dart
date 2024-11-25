@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,13 +28,14 @@ class HomePage extends StatelessWidget {
           ),
           SafeArea(
             child: Builder(builder: (context) {
-              return RefreshIndicator(
+              return RefreshIndicator.adaptive(
                 displacement: MediaQuery.sizeOf(context).height * 0.1,
                 onRefresh: () async {
                   await Future.delayed(const Duration(milliseconds: 500));
                   HomeScope.of(context).loadEvents();
                 },
                 child: CustomScrollView(
+                  scrollBehavior: const CupertinoScrollBehavior(),
                   slivers: [
                     const HomeAppBar(),
                     SliverToBoxAdapter(

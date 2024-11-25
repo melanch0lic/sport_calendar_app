@@ -30,7 +30,7 @@ class _AutoScrollingListViewState extends State<AutoScrollingListView> {
 
   void _startAutoScroll() {
     _timer = Timer.periodic(const Duration(seconds: 5), (_) {
-      if (_pageController.hasClients && _pageController.page != null && _pageController.page!.toInt() > 1) {
+      if (_pageController.hasClients) {
         final minScrollExtent = _pageController.position.minScrollExtent;
         final maxScrollExtent = _pageController.position.maxScrollExtent;
         final currentScrollPosition = _pageController.offset;

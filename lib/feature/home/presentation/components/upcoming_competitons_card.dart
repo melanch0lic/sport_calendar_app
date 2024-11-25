@@ -52,19 +52,36 @@ class _UpcomingCompetitonsCardState extends State<UpcomingCompetitonsCard> {
                 ],
               ),
               const SizedBox(height: 12),
-              Row(
-                children: [
-                  SvgPicture.asset('assets/icons/schedule.svg'),
-                  const SizedBox(width: 5),
-                  Text(
-                    '${formatTimestamp(widget.event.eventStartDate.toIso8601String())}—${formatTimestamp(widget.event.eventEndDate.toIso8601String())}',
-                    style: CommonTextStyles().cardBody,
-                  ),
-                  const SizedBox(width: 8),
-                  SvgPicture.asset('assets/icons/profile.svg'),
-                  const SizedBox(width: 5),
-                  Text('${widget.event.eventParticipants} участников', style: CommonTextStyles().cardBody)
-                ],
+              Expanded(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset('assets/icons/schedule.svg'),
+                        const SizedBox(width: 5),
+                        Text(
+                          '${formatTimestamp(widget.event.eventStartDate.toIso8601String())}—${formatTimestamp(widget.event.eventEndDate.toIso8601String())}',
+                          style: CommonTextStyles().cardBody,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Flexible(
+                      child: FittedBox(
+                        child: Row(
+                          children: [
+                            SvgPicture.asset('assets/icons/profile.svg'),
+                            const SizedBox(width: 5),
+                            Text('${widget.event.eventParticipants} участников', style: CommonTextStyles().cardBody)
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
               const SizedBox(height: 12),
               Text(
