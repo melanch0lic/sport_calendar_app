@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
+import 'package:sport_calendart_app/core/ui_kit/column_builder.dart';
 import 'package:sport_calendart_app/feature/home/bloc_event/event_bloc.dart';
 import 'package:sport_calendart_app/feature/home/domain/entity/event_data.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/auto_scrolling_listview.dart';
@@ -83,6 +84,7 @@ class HomePage extends StatelessWidget {
                                         .largeTitle
                                         .copyWith(color: const Color.fromRGBO(29, 31, 36, 1)),
                                   ),
+                                  const SizedBox(height: 16),
                                   BlocBuilder<EventBloc, EventState>(builder: (context, state) {
                                     if (state is EventLoading) {
                                       return Shimmer.fromColors(
@@ -90,6 +92,7 @@ class HomePage extends StatelessWidget {
                                         highlightColor: Colors.grey.shade100,
                                         enabled: true,
                                         child: const SingleChildScrollView(
+                                          padding: EdgeInsets.only(bottom: 36, top: 16),
                                           physics: NeverScrollableScrollPhysics(),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,13 +102,13 @@ class HomePage extends StatelessWidget {
                                               SizedBox(height: 16.0),
                                               ContentPlaceholder(lineType: ContentLineType.threeLines),
                                               SizedBox(height: 16.0),
-                                              TitlePlaceholder(width: 200.0),
+                                              TitlePlaceholder(width: double.infinity),
                                               SizedBox(height: 16.0),
-                                              ContentPlaceholder(lineType: ContentLineType.twoLines),
+                                              ContentPlaceholder(lineType: ContentLineType.threeLines),
                                               SizedBox(height: 16.0),
-                                              TitlePlaceholder(width: 200.0),
+                                              TitlePlaceholder(width: double.infinity),
                                               SizedBox(height: 16.0),
-                                              ContentPlaceholder(lineType: ContentLineType.twoLines),
+                                              ContentPlaceholder(lineType: ContentLineType.threeLines),
                                             ],
                                           ),
                                         ),
@@ -119,29 +122,19 @@ class HomePage extends StatelessWidget {
                                         groupedEvents[event.sportTypeId]?.add(event);
                                       }
 
-                                      return Padding(
-                                        padding: const EdgeInsets.only(bottom: 36),
-                                        child: ListView.separated(
-                                          physics: const PageScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount: groupedEvents.keys.length,
-                                          scrollDirection: Axis.vertical,
-                                          separatorBuilder: (context, index) => const SizedBox(height: 16),
-                                          itemBuilder: (context, index) {
-                                            String sportTypeId = groupedEvents.keys.elementAt(index);
-                                            List<EventData> events = groupedEvents[sportTypeId]!;
+                                      return ColumnBuilder.separator(
+                                        // physics: const PageScrollPhysics(),
+                                        itemCount: groupedEvents.keys.length,
+                                        separatorBuilder: (context, index) => const SizedBox(height: 16),
+                                        itemBuilder: (context, index) {
+                                          String sportTypeId = groupedEvents.keys.elementAt(index);
+                                          List<EventData> events = groupedEvents[sportTypeId]!;
 
-                                            return Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                PresentationContainerDropdown(
-                                                  sportTypeId: sportTypeId,
-                                                  events: events,
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ),
+                                          return PresentationContainerDropdown(
+                                            sportTypeId: sportTypeId,
+                                            events: events,
+                                          );
+                                        },
                                       );
                                     } else if (state is EventError) {
                                       return Center(child: Text(state.message));

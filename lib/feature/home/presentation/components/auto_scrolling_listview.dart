@@ -6,6 +6,8 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sport_calendart_app/feature/home/bloc_event/event_bloc.dart';
 import 'package:sport_calendart_app/feature/home/presentation/components/upcoming_competitons_card.dart';
 
+enum AutoScrollDirection { forward, backward }
+
 class AutoScrollingListView extends StatefulWidget {
   const AutoScrollingListView({super.key});
 
@@ -14,32 +16,42 @@ class AutoScrollingListView extends StatefulWidget {
 }
 
 class _AutoScrollingListViewState extends State<AutoScrollingListView> {
-  final ScrollController _scrollController = ScrollController();
+  final PageController _pageController = PageController(viewportFraction: 0.8, initialPage: 1);
+
+  late AutoScrollDirection _autoScrollDirection;
   late Timer _timer;
 
   @override
   void initState() {
     super.initState();
+    _autoScrollDirection = AutoScrollDirection.forward;
     _startAutoScroll();
   }
 
   void _startAutoScroll() {
     _timer = Timer.periodic(const Duration(seconds: 5), (_) {
-      final double cardWidth = MediaQuery.of(context).size.width * 0.85;
-      const double cardSpacing = 12;
-      if (_scrollController.hasClients) {
-        final maxScrollExtent = _scrollController.position.maxScrollExtent;
-        final currentScrollPosition = _scrollController.offset;
+      if (_pageController.hasClients && _pageController.page != null && _pageController.page!.toInt() > 1) {
+        final minScrollExtent = _pageController.position.minScrollExtent;
+        final maxScrollExtent = _pageController.position.maxScrollExtent;
+        final currentScrollPosition = _pageController.offset;
 
-        final nextIndex = ((currentScrollPosition + cardWidth / 2) ~/ (cardWidth + cardSpacing)) + 1;
-
-        if (currentScrollPosition >= maxScrollExtent) {
-          _scrollController.jumpTo(0);
+        if (currentScrollPosition <= minScrollExtent) {
+          _autoScrollDirection = AutoScrollDirection.forward;
+          _pageController.animateToPage(
+            _pageController.page!.toInt() + 1,
+            duration: const Duration(milliseconds: 750),
+            curve: Curves.easeInOut,
+          );
+        } else if (currentScrollPosition >= maxScrollExtent) {
+          _autoScrollDirection = AutoScrollDirection.backward;
+          _pageController.animateToPage(
+            _pageController.page!.toInt() - 1,
+            duration: const Duration(milliseconds: 750),
+            curve: Curves.easeInOut,
+          );
         } else {
-          final targetOffset =
-              nextIndex * (cardWidth + cardSpacing) - (MediaQuery.of(context).size.width / 2 - cardWidth / 2);
-          _scrollController.animateTo(
-            targetOffset.clamp(0.0, maxScrollExtent), // Учитываем границы
+          _pageController.animateToPage(
+            _pageController.page!.toInt() + (_autoScrollDirection == AutoScrollDirection.forward ? 1 : -1),
             duration: const Duration(milliseconds: 750),
             curve: Curves.easeInOut,
           );
@@ -51,7 +63,7 @@ class _AutoScrollingListViewState extends State<AutoScrollingListView> {
   @override
   void dispose() {
     _timer.cancel();
-    _scrollController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -65,34 +77,33 @@ class _AutoScrollingListViewState extends State<AutoScrollingListView> {
             return Shimmer.fromColors(
                 baseColor: Colors.grey.shade300,
                 highlightColor: Colors.grey.shade100,
-                child: ListView.separated(
-                  controller: _scrollController,
+                child: PageView.builder(
+                  controller: _pageController,
                   itemCount: 5,
                   scrollDirection: Axis.horizontal,
-                  separatorBuilder: (context, index) => const SizedBox(width: 12),
                   itemBuilder: (context, index) {
-                    return SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.85,
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16).copyWith(bottom: 20),
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: Colors.white,
-                          ),
-                        ));
+                    return Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16).copyWith(bottom: 20),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: Colors.white,
+                      ),
+                    );
                   },
                 ));
           } else if (state is EventLoaded) {
-            return ListView.separated(
-              controller: _scrollController,
+            return PageView.builder(
+              controller: _pageController,
               itemCount: state.events.length,
               scrollDirection: Axis.horizontal,
-              separatorBuilder: (context, index) => const SizedBox(width: 12),
               itemBuilder: (context, index) {
-                return SizedBox(
+                return Container(
+                  margin: const EdgeInsets.only(right: 12),
                   width: MediaQuery.of(context).size.width * 0.85,
-                  child: UpcomingCompetitonsCard(event: state.events[index]),
+                  child:
+                      UpcomingCompetitonsCard(key: ValueKey(state.events[index].eventId), event: state.events[index]),
                 );
               },
             );
