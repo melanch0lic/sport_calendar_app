@@ -29,14 +29,17 @@ class _MaterialAppState extends State<_MaterialApp> {
     return NotificationScope(
       child: AuthScope(
         child: MaterialApp.router(
-          locale: const Locale('ru', 'RU'),
+          locale: const Locale('ru'),
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate
           ],
           supportedLocales: const [
-            Locale('ru', 'RU'),
+            Locale('ru'),
+            Locale('en'),
           ],
+
           // locale: LocalizationScope.localeOf(context),
           // localizationsDelegates: AppLocalizations.localizationsDelegates,
           // supportedLocales: AppLocalizations.supportedLocales,

@@ -7,10 +7,12 @@ import 'package:sport_calendart_app/feature/home/presentation/components/persona
 class PresentationContainerDropdown extends StatefulWidget {
   const PresentationContainerDropdown({
     super.key,
+    this.isExpanded = true,
     required this.events,
     required this.sportTypeId,
   });
 
+  final bool isExpanded;
   final List<EventData> events;
   final String sportTypeId;
   @override
@@ -18,7 +20,13 @@ class PresentationContainerDropdown extends StatefulWidget {
 }
 
 class _PresentationContainerDropdownState extends State<PresentationContainerDropdown> {
-  bool isExpanded = false;
+  late bool isExpanded;
+
+  @override
+  void initState() {
+    isExpanded = widget.isExpanded;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
