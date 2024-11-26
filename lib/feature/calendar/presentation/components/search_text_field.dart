@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sport_calendart_app/core/theme/app_theme.dart';
 
+import '../../../../core/resources/assets.gen.dart';
+
 class SearchTextField extends StatelessWidget {
   const SearchTextField({
     super.key,
@@ -15,7 +17,7 @@ class SearchTextField extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
-            child: SvgPicture.asset('assets/icons/Search.svg'),
+            child: SvgPicture.asset(Assets.icons.search.path),
           ),
           hintText: 'Поиск',
           hintStyle: CommonTextStyles().body.copyWith(color: const Color.fromRGBO(211, 213, 218, 1)),

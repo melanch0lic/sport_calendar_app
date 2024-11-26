@@ -100,8 +100,8 @@ Future<DIContainer> _initDependencies() async {
   diContainer.registerSingleton<NotificationRepository>(NotificationRepositoryImplementation(firebaseMessaging, prefs));
   diContainer.registerSingleton<EventRepository>(MockEventRepositoryImplementation());
 
-  diContainer.registerSingleton<HomeBloc>(HomeBloc());
-  diContainer.registerSingleton<EventBloc>(EventBloc(diContainer.resolve<EventRepository>()));
+  diContainer.registerFactory<HomeBloc>(() => HomeBloc());
+  diContainer.registerFactory<EventBloc>(() => EventBloc(diContainer.resolve<EventRepository>()));
   diContainer.registerSingleton<AuthBloc>(AuthBloc(authRepository: authRepository));
 
   return diContainer;

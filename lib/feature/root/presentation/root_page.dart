@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sport_calendart_app/feature/home/presentation/home_scope.dart';
 
 import '../bloc/bottom_navigation_bloc.dart';
 import 'bottom_navigation_scope.dart';
@@ -16,17 +17,19 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationScope(
-      child: BlocConsumer<BottomNavigationBloc, BottomNavigationState>(
-        listener: _bottomNavListener,
-        builder: (context, state) {
-          return Scaffold(
-            backgroundColor: Colors.white,
-            extendBody: true,
-            extendBodyBehindAppBar: true,
-            bottomNavigationBar: BottomNavBar(currentIndex: state.currentPageIndex),
-            body: navigationShell,
-          );
-        },
+      child: HomeScope(
+        child: BlocConsumer<BottomNavigationBloc, BottomNavigationState>(
+          listener: _bottomNavListener,
+          builder: (context, state) {
+            return Scaffold(
+              backgroundColor: Colors.white,
+              extendBody: true,
+              extendBodyBehindAppBar: true,
+              bottomNavigationBar: BottomNavBar(currentIndex: state.currentPageIndex),
+              body: navigationShell,
+            );
+          },
+        ),
       ),
     );
   }
