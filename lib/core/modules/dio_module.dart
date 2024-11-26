@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../app_connect/app_connect.dart';
 import '../environment/app_environment.dart';
+import '../observer/logger_interceptor.dart';
 
 class DioModule {
   static DioModule? _instance;
@@ -15,7 +16,7 @@ class DioModule {
             receiveTimeout: const Duration(seconds: 35),
           ),
         ) {
-    dio.interceptors.addAll([LogInterceptor(requestBody: true, responseBody: true)]);
+    dio.interceptors.addAll([LoggerInterceptor()]);
 
     const appConnect = AppConnect();
     final connectInterceptor = ConnectInterceptor(appConnect: appConnect);

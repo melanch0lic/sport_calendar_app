@@ -73,6 +73,7 @@ dependencies:
   unixtime: ^1.0.0
   jwt_decoder: ^2.0.1
   shimmer: ^3.0.0
+  logger: ^2.5.0
 
 dev_dependencies:
   flutter_test:
