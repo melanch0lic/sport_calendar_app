@@ -1,22 +1,30 @@
-import 'dart:async';
+import 'package:l/l.dart';
 
 class DIContainer {
   final Map<Type, _Dependency> _dependencies = {};
-  final List<Type> _initializedDependencies = [];
 
-  /// Registers a singleton dependency
+  /// Registers a singleton dependency (eager initialization)
   void registerSingleton<T>(T instance) {
     _dependencies[T] = _Dependency(instance: instance);
+    l.d('${T.toString()} singleton instance registered');
   }
 
   /// Registers a factory dependency
   void registerFactory<T>(T Function() factory) {
     _dependencies[T] = _Dependency(factory: factory);
+    l.d('${T.toString()} factory registered');
   }
 
   /// Registers an async factory dependency
   void registerAsync<T>(Future<T> Function() asyncFactory) {
     _dependencies[T] = _Dependency(asyncFactory: asyncFactory);
+    l.d('${T.toString()} async factory registered');
+  }
+
+  /// Registers a lazy singleton dependency
+  void registerLazySingleton<T>(T Function() factory) {
+    _dependencies[T] = _Dependency(lazySingletonFactory: factory);
+    l.d('${T.toString()} lazy singleton instance registered');
   }
 
   /// Resolves a dependency
@@ -30,7 +38,6 @@ class DIContainer {
 
   /// Initializes all async dependencies and tracks progress
   Future<void> initializeAllDependencies({
-    required void Function(String message) logger,
     required void Function(double progress) onProgress,
   }) async {
     final asyncDependencies = _dependencies.entries.where((entry) => entry.value.isAsync).toList();
@@ -43,13 +50,13 @@ class DIContainer {
       final dependency = entry.value;
 
       try {
-        logger('Initializing $type...');
+        l.d('Initializing $type...');
         await dependency.initializeAsync();
-        _initializedDependencies.add(type);
+        // _initializedDependencies.add(type);
         completed++;
-        logger('$type initialized successfully.');
+        l.d('$type initialized successfully.');
       } catch (e) {
-        logger('Error initializing $type: $e');
+        l.d('Error initializing $type: $e');
       } finally {
         onProgress(completed / total);
       }
@@ -62,16 +69,26 @@ class _Dependency<T> {
   final T? instance;
   final T Function()? factory;
   final Future<T> Function()? asyncFactory;
+  final T Function()? lazySingletonFactory;
+
   T? _cachedInstance;
 
-  _Dependency({this.instance, this.factory, this.asyncFactory});
+  _Dependency({
+    this.instance,
+    this.factory,
+    this.asyncFactory,
+    this.lazySingletonFactory,
+  });
 
   bool get isAsync => asyncFactory != null;
 
   T getInstance() {
     if (instance != null) return instance!;
-    if (factory != null) {
-      return factory!();
+    if (factory != null) return factory!();
+    if (lazySingletonFactory != null) {
+      // Lazy initialization of singleton
+      _cachedInstance ??= lazySingletonFactory!();
+      return _cachedInstance!;
     }
     throw Exception('Dependency is async and requires initialization');
   }
